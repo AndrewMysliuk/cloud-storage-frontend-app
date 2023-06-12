@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { NavLink } from "react-router-dom"
+import VInput from "../UI/VInput/VInput"
 import Logo from "../../assets/img/drive.png"
 import { useTypedSelector } from "../../hooks/useTypedSelector"
 import { useActions } from "../../hooks/useActions"
@@ -18,19 +19,19 @@ const Navbar = () => {
       ? `${process.env.REACT_APP_API_URL}${user.avatar}`
       : avatarIcon
 
-  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchName(event.target.value)
+  const inputHandler = (inputValue: string) => {
+    setSearchName(inputValue)
     if (searchTimeout) {
       clearTimeout(searchTimeout)
     }
-    if (event.target.value) {
+    if (inputValue) {
       setSearchTimeout(
         setTimeout(
           (value: string) => {
             searchUserFile(value)
           },
           500,
-          event.target.value
+          inputValue
         )
       )
     } else {
@@ -51,9 +52,9 @@ const Navbar = () => {
 
         <div className="navbar__header">MERN CLOUD</div>
         {isAuth && (
-          <input
+          <VInput
             value={searchName}
-            onChange={(event) => inputHandler(event)}
+            setValue={inputHandler}
             className="navbar__search"
             type="text"
             placeholder="Enter file name..."

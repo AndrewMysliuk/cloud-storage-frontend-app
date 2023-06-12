@@ -1,6 +1,6 @@
 import { AppDispatch } from "../.."
 import { IUser } from "../../../models/IUser"
-import { auth, login } from "../../../api/user"
+import { getMe, login } from "../../../api/user"
 import { UserActionsEnum, SetAuthAction, SetUserAction } from "./types"
 import { setAuthHeaders } from "../../../plugins/axios"
 
@@ -15,13 +15,13 @@ export const UserActionCreators = {
     payload: user,
   }),
 
-  userAuth: () => async (dispatch: AppDispatch) => {
+  userGetMe: () => async (dispatch: AppDispatch) => {
     if (localStorage.getItem("access_token")) {
       dispatch(UserActionCreators.setIsAuth(true))
 
-      const response = await auth()
+      const response = await getMe()
       if (response) {
-        dispatch(UserActionCreators.setUser(response.user))
+        dispatch(UserActionCreators.setUser(response))
       }
     }
   },

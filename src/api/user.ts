@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios"
 import axios from "../plugins/axios"
+import defaultAxios from "axios"
 import { IRegistrationResponse, ILoginResponse } from "../models/IResponse"
 import { IUser } from "../models/IUser"
 import { store } from "../store"
@@ -7,15 +8,19 @@ import { UserActionCreators } from "../store/reducers/user/action-creators"
 
 export const registration = async (
   email: string,
-  password: string
+  password: string,
+  first_name: string,
+  last_name: string
 ): Promise<IRegistrationResponse> => {
   try {
-    const response: AxiosResponse<IRegistrationResponse> = await axios({
-      url: "/api/auth/registration",
+    const response: AxiosResponse<IRegistrationResponse> = await defaultAxios({
+      url: `${process.env.REACT_APP_API_URL}/api/auth/registration`,
       method: "POST",
       data: {
         email,
         password,
+        first_name,
+        last_name,
       },
     })
 
@@ -33,8 +38,8 @@ export const login = async (
   password: string
 ): Promise<ILoginResponse> => {
   try {
-    const response: AxiosResponse<ILoginResponse> = await axios({
-      url: "/api/auth/login",
+    const response: AxiosResponse<ILoginResponse> = await defaultAxios({
+      url: `${process.env.REACT_APP_API_URL}/api/auth/login`,
       method: "POST",
       data: {
         email,
@@ -51,14 +56,14 @@ export const login = async (
   }
 }
 
-export const auth = async (): Promise<ILoginResponse> => {
+export const getMe = async (): Promise<IUser> => {
   try {
-    const response: AxiosResponse<ILoginResponse> = await axios({
-      url: "/api/auth/auth",
+    const response: AxiosResponse<IUser> = await axios({
+      url: "/api/auth/get_me",
       method: "GET",
     })
 
-    const { data }: { data: ILoginResponse } = response
+    const { data }: { data: IUser } = response
 
     return data
   } catch (error) {

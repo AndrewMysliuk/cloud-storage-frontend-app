@@ -5,10 +5,10 @@ import { useActions } from "./hooks/useActions"
 import AppRouter from "./components/AppRouter"
 
 const App = () => {
-  const { userAuth } = useActions()
+  const { userGetMe } = useActions()
 
   useEffect(() => {
-    userAuth()
+    userGetMe()
   })
 
   return (
