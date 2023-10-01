@@ -1,0 +1,26 @@
+@import "../../../../app/styles/common/variables";
+
+.uploader {
+  height: 300px;
+  width: 300px;
+  position: fixed;
+  background: $font-color;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+  border-radius: 12px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    color: $background-color;
+    font-size: 1.2rem;
+  }
+
+  &__close {
+    padding: 3px;
+  }
+}
