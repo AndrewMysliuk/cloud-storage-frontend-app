@@ -2,7 +2,7 @@ import { IUser } from "../../../types/IUser"
 import { UserAction, UserActionsEnum, UserState } from "./types"
 
 const initialStore: UserState = {
-  isAuth: false,
+  isAuth: true,
   user: {} as IUser,
 }
 

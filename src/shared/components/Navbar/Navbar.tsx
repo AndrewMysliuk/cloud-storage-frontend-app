@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import { useState } from "react"
+import "./Navbar.scss"
 import { NavLink } from "react-router-dom"
 import VInput from "../../UI/VInput/VInput"
 import Logo from "../../assets/img/drive.png"
