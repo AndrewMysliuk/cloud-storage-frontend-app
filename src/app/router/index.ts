@@ -1,5 +1,5 @@
 import React from "react"
-import { LoginPage, RegistrationPage, ProfilePage, DiskPage } from "@/pages"
+import { LoginPage, DiskPage } from "@/pages"
 
 export interface IRoute {
   path: string
@@ -18,20 +18,11 @@ export const publicRoutes: IRoute[] = [
     path: RouteNames.LOGIN,
     element: LoginPage,
   },
-
-  {
-    path: RouteNames.REGISTRATION,
-    element: RegistrationPage,
-  },
 ]
 
 export const privateRoutes: IRoute[] = [
   {
     path: RouteNames.MAIN,
     element: DiskPage,
-  },
-  {
-    path: RouteNames.PROFILE,
-    element: ProfilePage,
   },
 ]

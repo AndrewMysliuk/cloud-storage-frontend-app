@@ -1,35 +1,87 @@
-.navbar {
-  display: flex;
-  justify-content: center;
-  height: 50px;
-  background-color: white;
-  width: 100%;
+@import "../../../app/styles/mixins/mixins";
 
-  &__header {
-    margin-left: 10px;
-    font-size: 24px;
-    font-weight: 700;
+.navbar {
+  position: absolute;
+  left: rem(270px);
+  right: 0;
+  top: 0;
+  height: rem(77px);
+  display: flex;
+  align-items: center;
+
+  &__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: rem(15px 10px 0 10px);
   }
 
-  &__login {
-    margin-left: auto;
-    margin-right: 20px;
+  &__chapter {
+    display: flex;
+    align-items: center;
+
+    &-link {
+      display: flex;
+      align-items: center;
+      gap: rem(5px);
+    }
+
+    &-icon {
+      width: rem(22.75px);
+      height: rem(22.75px);
+
+      &.--storage {
+        background: url("../../assets/img/storage-black.svg");
+      }
+    }
+
+    &-title {
+      font-weight: 500;
+      font-size: rem(20px);
+    }
+  }
+
+  &__helpers {
+    display: flex;
+    align-items: center;
+    gap: rem(46.05px);
   }
 
   &__search {
-    width: 200px;
-    margin-left: 30px;
+    width: rem(395px);
   }
 
-  &__avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
-}
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: rem(6px);
 
-.container {
-  width: 1140px;
-  display: flex;
-  align-items: center;
+    &-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: rem(34px);
+      height: rem(34px);
+      background: #37a0ea;
+      color: #ffffff;
+      font-size: rem(12.75px);
+      line-height: 121.5%;
+      border-radius: 50%;
+      font-weight: 500;
+    }
+
+    &-name {
+      font-size: rem(14px);
+      line-height: 150%;
+      font-weight: 500;
+    }
+
+    &-burger {
+      width: rem(30.03px);
+      height: rem(30.03px);
+      background: url("../../assets/img/burger.svg");
+      cursor: pointer;
+    }
+  }
 }

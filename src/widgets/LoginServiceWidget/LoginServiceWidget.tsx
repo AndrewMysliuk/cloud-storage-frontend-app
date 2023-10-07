@@ -15,14 +15,14 @@ const LoginServiceWidget = () => {
         setValue={setEmail}
         type="email"
         placeholder="Enter email..."
-        required
+        isRequired
       />
       <VInput
         value={password}
         setValue={setPassword}
         type="password"
         placeholder="Enter password"
-        required
+        isRequired
       />
       <div
         className="authorization__btn"

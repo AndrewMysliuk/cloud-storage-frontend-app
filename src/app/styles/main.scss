@@ -1,8 +1,7 @@
 @import "mixins/mixins";
 
+@import "common/fonts";
 @import "common/variables";
 @import "common/base";
 
 @import "components/app.scss";
-@import "components/authorization.scss";
-@import "components/disk.scss";

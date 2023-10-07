@@ -4,29 +4,33 @@ import "./VInput.scss"
 interface VInputProps {
   type?: string
   placeholder?: string
-  required?: boolean
+  isRequired?: boolean
   value: string | number
-  className?: string
+  isSearch?: boolean
   setValue: (value: string) => void
 }
 
 const VInput: FC<VInputProps> = ({
   type,
   placeholder,
-  required,
+  isRequired,
+  isSearch,
   value,
-  className,
   setValue,
 }) => {
   return (
-    <input
-      value={value}
-      onChange={(event) => setValue(event.target.value)}
-      required={required}
-      type={type}
-      placeholder={placeholder}
-      className={className}
-    />
+    <div className={`v-input ${isSearch ? "--type-search" : ""}`}>
+      {isSearch && <div className="v-input__search" />}
+
+      <input
+        className="v-input__field"
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        required={isRequired}
+        type={type}
+        placeholder={placeholder}
+      />
+    </div>
   )
 }
 

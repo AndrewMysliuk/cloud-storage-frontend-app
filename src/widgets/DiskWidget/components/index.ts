@@ -1,7 +1,3 @@
-import Popup from "./Popup"
-import File from "./File"
-import FileList from "./FileList"
-import Uploader from "./Uploader"
-import UploadFile from "./UploadFile"
+import RecentFiles from "./RecentFiles"
 
-export { Popup, File, FileList, Uploader, UploadFile }
+export { RecentFiles }
