@@ -1,6 +1,56 @@
 @import "../../../../app/styles/mixins/mixins";
 
 .recent-files {
+  width: 100%;
+
   &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: rem(5px 0);
+
+    &-title {
+      font-size: rem(20px);
+      font-weight: 500;
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: rem(10px);
+    margin: rem(10px 0);
+  }
+
+  &__card {
+    width: rem(248px);
+    height: rem(182px);
+    border-radius: rem(10px);
+    background: #ffffff;
+    padding: rem(10px 10px 20px 10px);
+
+    &-wrap {
+      display: flex;
+      align-items: center;
+      gap: rem(5px);
+    }
+
+    &-icon {
+      width: rem(20px);
+      height: rem(20px);
+      background: url("../../../../shared/assets/img/image-black.png") center /
+        contain no-repeat;
+    }
+
+    &-title {
+      font-size: rem(16px);
+    }
+
+    &-preview {
+      margin-top: rem(15px);
+      width: 100%;
+      height: rem(118px);
+      background-size: 100% 100%;
+    }
   }
 }

@@ -1,0 +1,134 @@
+@import "../../app/styles/mixins/mixins";
+
+.disk {
+  &__header {
+    padding: rem(5px 0);
+    margin: rem(10px 0);
+
+    &-title {
+      font-size: rem(20px);
+      font-weight: 500;
+    }
+  }
+
+  &__table {
+    &-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    &-image {
+      width: rem(41px);
+      height: rem(41px);
+      border-radius: rem(5px);
+      position: relative;
+      margin-right: rem(11px);
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: rem(25px);
+        height: rem(25px);
+        top: 50%;
+        left: 50%;
+        margin: rem(-12.5px 0 0 -12.5px);
+      }
+
+      &.--folder {
+        background: #9eb0bd;
+
+        &::before {
+          background: url("../../shared/assets/img/table/folder.svg") center /
+            contain no-repeat;
+        }
+      }
+
+      &.--image {
+        background: #28d9e4;
+
+        &::before {
+          background: url("../../shared/assets/img/table/image.svg") center /
+            contain no-repeat;
+        }
+      }
+
+      &.--document {
+        background: #60bbfb;
+
+        &::before {
+          background: url("../../shared/assets/img/table/file.svg") center /
+            contain no-repeat;
+        }
+      }
+
+      &.--table {
+        background: #94d19a;
+
+        &::before {
+          background: url("../../shared/assets/img/table/table.svg") center /
+            contain no-repeat;
+        }
+      }
+
+      &.--video {
+        background: #ff8989;
+
+        &::before {
+          background: url("../../shared/assets/img/table/video.svg") center /
+            contain no-repeat;
+        }
+      }
+    }
+
+    &-title {
+      font-size: rem(14px);
+      font-weight: 500;
+      line-height: 150%;
+    }
+
+    &-desc {
+      font-size: rem(14px);
+      line-height: 150%;
+    }
+
+    &-short {
+      width: rem(20px);
+      height: rem(20px);
+      border-radius: 50%;
+      margin-right: rem(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: rem(8.46px);
+      color: #f9fafb;
+
+      &.--red {
+        background: #db4040;
+      }
+
+      &.--orange {
+        background: #f4a257;
+      }
+
+      &.--purple {
+        background: #5f40db;
+      }
+
+      &.--green {
+        background: #4b4b4b;
+      }
+    }
+
+    &-name {
+      font-size: rem(14px);
+      line-height: 150%;
+    }
+
+    &-menu {
+      width: rem(30px);
+      height: rem(30px);
+      cursor: pointer;
+      background: url("../../shared/assets/img/burger.svg");
+    }
+  }
+}

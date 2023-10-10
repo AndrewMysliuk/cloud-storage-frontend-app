@@ -1,0 +1,100 @@
+@import "../../../../app/styles/mixins/mixins";
+
+.table {
+  width: 100%;
+  border-radius: rem(10px);
+
+  &__header,
+  &__body {
+    width: 100%;
+  }
+
+  &__header {
+    border-top-right-radius: rem(10px);
+    border-top-left-radius: rem(10px);
+    padding: rem(16px);
+    background: #fafafa;
+
+    .table__col {
+      font-size: rem(14px);
+      line-height: 150%;
+      font-weight: 500;
+    }
+  }
+
+  &__body {
+    padding: rem(10px);
+    border-bottom-right-radius: rem(10px);
+    border-bottom-left-radius: rem(10px);
+    background: #ffffff;
+
+    .table__row {
+      padding: rem(6.5px 16px);
+      border-radius: rem(5px);
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: #f2f2f2;
+      }
+    }
+
+    &-container {
+      height: calc(100vh - 410px);
+      overflow-y: scroll;
+
+      /* Hide default scrollbar */
+      &::-webkit-scrollbar {
+        width: rem(7px);
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #bdcedb;
+        border-radius: rem(6px);
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #bdcedb;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #ffffff;
+        border-radius: rem(6px);
+      }
+    }
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+
+  &__col {
+    &.--name {
+      flex: 0 0 28.5%;
+    }
+
+    &.--tag {
+      flex: 0 0 16.73%;
+    }
+
+    &.--timestamp {
+      flex: 0 0 17.05%;
+    }
+
+    &.--owner {
+      flex: 0 0 17.53%;
+    }
+
+    &.--modified {
+      flex: 0 0 15.45%;
+    }
+
+    &.--menu {
+      flex: 0 0 4.76%;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import "./Navbar.scss"
-import VInput from "@/shared/UI/VInput"
+import { VInput } from "@/shared/UI"
 
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState<string>("")

@@ -1,0 +1,51 @@
+@import "../../../app/styles/mixins/mixins";
+
+.v-button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: rem(10px 20px);
+  border-radius: rem(5px);
+  position: relative;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &.--icon-plus {
+    padding: rem(10px 20px 10px 48px);
+
+    .v-button__icon {
+      top: 50%;
+      left: rem(20px);
+      margin-top: rem(-11px);
+      background: url("../../assets/img/add.svg");
+    }
+  }
+
+  &.--color-blue {
+    background: #37a0ea;
+
+    .v-button__title {
+      color: #ffffff;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    width: rem(20px);
+    height: rem(20px);
+  }
+
+  &__title {
+    font-family: "Graphik LCG";
+    font-size: rem(14px);
+    line-height: rem(150%);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+}
