@@ -22,8 +22,19 @@
     .v-button__icon {
       top: 50%;
       left: rem(20px);
-      margin-top: rem(-11px);
-      background: url("../../assets/img/add.svg");
+      margin-top: rem(-10px);
+      background: url("../../assets/img/add.svg") center / contain no-repeat;
+    }
+  }
+
+  &.--icon-key {
+    padding: rem(10px 10.5px 10px 38.5px);
+
+    .v-button__icon {
+      top: 50%;
+      left: rem(10.5px);
+      margin-top: rem(-10px);
+      background: url("../../assets/img/key.svg") center / contain no-repeat;
     }
   }
 
@@ -33,6 +44,11 @@
     .v-button__title {
       color: #ffffff;
     }
+  }
+
+  &.--color-white {
+    background: #ffffff;
+    border: rem(1px solid #000000);
   }
 
   &__icon {

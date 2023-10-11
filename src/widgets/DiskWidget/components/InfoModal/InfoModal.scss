@@ -1,0 +1,120 @@
+@import "../../../../app/styles/mixins/mixins";
+
+.info-modal {
+  width: 100%;
+  min-height: 100%;
+  background: #ffffff;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: rem(20px);
+    border-bottom: rem(1px solid #c6c6c6);
+
+    &-title {
+      font-size: rem(18px);
+      font-weight: 500;
+      line-height: 150%;
+    }
+
+    &-close {
+      width: rem(24px);
+      height: rem(24px);
+      cursor: pointer;
+      background: url("../../../../shared/assets/img/close.svg") center /
+        contain no-repeat;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    padding: rem(20px);
+  }
+
+  &__img {
+    width: rem(265px);
+    height: rem(177px);
+    margin: 0 auto;
+    background: url("../../../../shared/assets/img/mock-img.png") center /
+      contain no-repeat;
+  }
+
+  &__access {
+    padding: rem(24px 0);
+    margin: rem(24px 0);
+    border-top: rem(1px solid #c6c6c6);
+    border-bottom: rem(1px solid #c6c6c6);
+
+    &-title {
+      font-size: rem(18px);
+      font-weight: 500;
+      line-height: 150%;
+    }
+
+    &-owners {
+      margin: rem(16px 0);
+    }
+
+    &-short {
+      width: rem(29px);
+      height: rem(29px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: rem(12px);
+      font-weight: 500;
+
+      &.--red {
+        background: #db4040;
+      }
+
+      &.--orange {
+        background: #f4a257;
+      }
+
+      &.--purple {
+        background: #5f40db;
+      }
+
+      &.--green {
+        background: #4b4b4b;
+      }
+    }
+
+    &-btn {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &__info {
+    &-title {
+      font-size: rem(18px);
+      font-weight: 500;
+      line-height: 150%;
+    }
+
+    &-row {
+      margin-top: rem(16px);
+    }
+
+    &-col {
+      font-size: rem(18px);
+      line-height: 150%;
+
+      &.--title {
+        font-weight: 500;
+        margin-bottom: rem(4px);
+      }
+
+      &.--value {
+        display: flex;
+        align-items: center;
+        gap: rem(8px);
+      }
+    }
+  }
+}

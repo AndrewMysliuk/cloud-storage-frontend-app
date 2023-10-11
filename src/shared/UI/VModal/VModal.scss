@@ -1,0 +1,52 @@
+@import "../../../app/styles/mixins/mixins";
+
+.v-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 102;
+
+  &__background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(135, 147, 197, 0.3);
+    z-index: 103;
+  }
+
+  &__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: rem(320px);
+    overflow-y: scroll;
+    z-index: 104;
+
+    /* Hide default scrollbar */
+    &::-webkit-scrollbar {
+      width: rem(7px);
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #bdcedb;
+      border-radius: rem(6px);
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #bdcedb;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #ffffff;
+      border-radius: rem(6px);
+    }
+  }
+}
