@@ -1,5 +1,5 @@
 import "./RecentFiles.scss"
-import { VButton } from "@/shared/UI"
+import { VButton } from "@/shared/ui"
 import Image1 from "../../../../shared/assets/img/recent-img/image1.png"
 import Image2 from "../../../../shared/assets/img/recent-img/image2.png"
 import Image3 from "../../../../shared/assets/img/recent-img/image3.png"

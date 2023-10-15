@@ -1,8 +1,8 @@
-import { IUser } from "../../../types/IUser"
+import { IUser } from "@/shared/types/IUser"
 
 export interface UserState {
   isAuth: boolean
-  user: IUser
+  User: IUser
 }
 
 export enum UserActionsEnum {

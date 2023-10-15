@@ -1,8 +1,21 @@
 import { AppDispatch } from "../.."
-import { IUser } from "../../../types/IUser"
-import { getMe, login } from "../../../api/user"
+import { IUser, UserIconColorEnum, UserStatusEnum } from "@/shared/types/IUser"
 import { UserActionsEnum, SetAuthAction, SetUserAction } from "./types"
 import { setAuthHeaders } from "../../../plugins/axios"
+import { timestamp, uuid } from "@/shared/types/ICommon"
+
+const MOCK_USER = {
+  id: "108c4d0f-5ef6-43e6-aa97-21ee55d7c18f" as uuid,
+  first_name: "John",
+  last_name: "Doe",
+  avatar: "",
+  icon_color: UserIconColorEnum.ORANGE,
+  created_at: "2023-10-15T12:34:56.789Z" as timestamp,
+  updated_at: "2023-10-15T12:34:56.789Z" as timestamp,
+  status: UserStatusEnum.ACTIVE,
+  storage_used: 751619276.8,
+  storage_limit: 2147483648,
+}
 
 export const UserActionCreators = {
   setIsAuth: (auth: boolean): SetAuthAction => ({
@@ -18,34 +31,18 @@ export const UserActionCreators = {
   userGetMe: () => async (dispatch: AppDispatch) => {
     if (localStorage.getItem("access_token")) {
       dispatch(UserActionCreators.setIsAuth(true))
+      dispatch(UserActionCreators.setUser(MOCK_USER))
 
-      const response = await getMe()
-      if (response) {
-        dispatch(UserActionCreators.setUser(response))
-      }
+      setAuthHeaders()
     }
   },
 
-  userLogin:
-    (email: string, password: string) => async (dispatch: AppDispatch) => {
-      // const response = await login(email, password)
+  userLogin: () => async (dispatch: AppDispatch) => {
+    dispatch(UserActionCreators.setIsAuth(true))
+    dispatch(UserActionCreators.setUser(MOCK_USER))
 
-      // if (response) {
-      // localStorage.setItem("access_token", response.token)
-      dispatch(UserActionCreators.setIsAuth(true))
-      dispatch(
-        UserActionCreators.setUser({
-          id: "54d23bf6-dbc6-4bd6-b333-78ab5120808d",
-          email: "test@gmail.com",
-          drive_space: 10000,
-          used_space: 0,
-          avatar: "",
-        })
-      )
-
-      // setAuthHeaders()
-      // }
-    },
+    setAuthHeaders()
+  },
 
   userLogout: () => (dispatch: AppDispatch) => {
     localStorage.removeItem("access_token")

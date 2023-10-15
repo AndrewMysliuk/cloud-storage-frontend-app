@@ -1,9 +1,9 @@
-import { IUser } from "../../../types/IUser"
+import { IUser } from "@/shared/types/IUser"
 import { UserAction, UserActionsEnum, UserState } from "./types"
 
 const initialStore: UserState = {
-  isAuth: true,
-  user: {} as IUser,
+  isAuth: false,
+  User: {} as IUser,
 }
 
 export default function userReducer(
@@ -15,7 +15,7 @@ export default function userReducer(
       return { ...state, isAuth: action.payload }
 
     case UserActionsEnum.SET_USER:
-      return { ...state, user: action.payload }
+      return { ...state, User: action.payload }
 
     default:
       return state

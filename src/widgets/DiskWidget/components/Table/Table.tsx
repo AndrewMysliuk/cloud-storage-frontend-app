@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { VModal } from "@/shared/UI"
+import { VModal } from "@/shared/ui"
 import "./Table.scss"
 import {
   ITableContentMock,

@@ -1,7 +1,7 @@
 import { FC } from "react"
 import "./InfoModal.scss"
 import { ITableContentMock } from "../../types"
-import { VButton } from "@/shared/UI"
+import { VButton } from "@/shared/ui"
 
 interface InfoModalProps {
   closeModal: () => void

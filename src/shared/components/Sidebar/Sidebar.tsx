@@ -1,8 +1,11 @@
 import { useState } from "react"
 import "./Sidebar.scss"
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
+import sizeFormat from "@/shared/utils/sizeFormat"
 
 const Sidebar = () => {
   const [isStorageOpen, setIsStorageOpen] = useState<boolean>(true)
+  const { User } = useTypedSelector((state) => state.user)
 
   return (
     <div className="sidebar">
@@ -97,11 +100,17 @@ const Sidebar = () => {
             </div>
 
             <div className="sidebar__progress-loader">
-              <div className="sidebar__progress-capacity" />
+              <div
+                className="sidebar__progress-capacity"
+                style={{
+                  width: `${(User.storage_used / User.storage_limit) * 100}%`,
+                }}
+              />
             </div>
 
             <div className="sidebar__progress-desc">
-              You have used 5 GB out of 15 GB.
+              You have used {sizeFormat(User.storage_used)} out of{" "}
+              {sizeFormat(User.storage_limit)}.
             </div>
           </div>
         </footer>
