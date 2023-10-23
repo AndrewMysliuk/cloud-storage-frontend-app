@@ -40,7 +40,8 @@
     }
 
     &-container {
-      height: calc(100vh - 410px);
+      // height: calc(100vh - 410px);
+      height: calc(100vh - 240px);
       overflow-y: scroll;
 
       /* Hide default scrollbar */

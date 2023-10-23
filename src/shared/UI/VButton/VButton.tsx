@@ -8,6 +8,7 @@ interface VButtonProps {
   title: string
   isBlueColor?: boolean
   isWhiteColor?: boolean
+  clickValue?: () => void
 }
 
 const VButton: FC<VButtonProps> = ({
@@ -17,9 +18,11 @@ const VButton: FC<VButtonProps> = ({
   title,
   isBlueColor,
   isWhiteColor,
+  clickValue,
 }) => {
   return (
     <button
+      onClick={clickValue}
       type={type}
       className={`v-button 
       ${isPlusIcon ? "--icon-plus" : ""} 

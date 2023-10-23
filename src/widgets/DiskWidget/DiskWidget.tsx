@@ -4,10 +4,10 @@ import { RecentFiles, Table } from "./components"
 import { useActions } from "@/shared/hooks/useActions"
 
 const DiskWidget = () => {
-  const { userLogin } = useActions()
+  const { userGetMe } = useActions()
 
   useEffect(() => {
-    userLogin()
+    userGetMe()
   }, [])
 
   return (

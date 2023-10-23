@@ -5,8 +5,8 @@ const axiosInstance = axios.create({
 })
 
 export const setAuthHeaders = () => {
-  // const auth_token = localStorage.getItem("access_token") || ""
-  // axiosInstance.defaults.headers.common.Authorization = `Bearer ${auth_token}`
+  const auth_token = localStorage.getItem("access_token") || ""
+  axiosInstance.defaults.headers.common.Authorization = `Bearer ${auth_token}`
 }
 
 setAuthHeaders()
@@ -17,6 +17,7 @@ axiosInstance.interceptors.response.use(
     const { status } = error.request
 
     if (status === 401) {
+      localStorage.removeItem("access_token")
       setAuthHeaders()
 
       setTimeout(() => {

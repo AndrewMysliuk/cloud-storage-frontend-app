@@ -1,5 +1,5 @@
 import React from "react"
-import { DiskPage } from "@/pages"
+import { DiskPage, AuthPage } from "@/pages"
 
 export interface IRoute {
   path: string
@@ -8,9 +8,15 @@ export interface IRoute {
 
 export enum RouteNames {
   MAIN = "/",
+  AUTH = "/auth",
 }
 
-export const publicRoutes: IRoute[] = []
+export const publicRoutes: IRoute[] = [
+  {
+    path: RouteNames.AUTH,
+    element: AuthPage,
+  },
+]
 
 export const privateRoutes: IRoute[] = [
   {

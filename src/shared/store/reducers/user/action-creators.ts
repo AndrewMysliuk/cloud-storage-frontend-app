@@ -1,21 +1,8 @@
 import { AppDispatch } from "../.."
-import { IUser, UserIconColorEnum, UserStatusEnum } from "@/shared/types/IUser"
+import { IUser } from "@/shared/types/IUser"
 import { UserActionsEnum, SetAuthAction, SetUserAction } from "./types"
 import { setAuthHeaders } from "../../../plugins/axios"
-import { timestamp, uuid } from "@/shared/types/ICommon"
-
-const MOCK_USER = {
-  id: "108c4d0f-5ef6-43e6-aa97-21ee55d7c18f" as uuid,
-  first_name: "John",
-  last_name: "Doe",
-  avatar: "",
-  icon_color: UserIconColorEnum.ORANGE,
-  created_at: "2023-10-15T12:34:56.789Z" as timestamp,
-  updated_at: "2023-10-15T12:34:56.789Z" as timestamp,
-  status: UserStatusEnum.ACTIVE,
-  storage_used: 751619276.8,
-  storage_limit: 2147483648,
-}
+import { getMe } from "@/shared/api/auth"
 
 export const UserActionCreators = {
   setIsAuth: (auth: boolean): SetAuthAction => ({
@@ -29,19 +16,26 @@ export const UserActionCreators = {
   }),
 
   userGetMe: () => async (dispatch: AppDispatch) => {
-    if (localStorage.getItem("access_token")) {
-      dispatch(UserActionCreators.setIsAuth(true))
-      dispatch(UserActionCreators.setUser(MOCK_USER))
+    const response = await getMe()
 
-      setAuthHeaders()
+    if (response) {
+      dispatch(UserActionCreators.setUser(response))
     }
   },
 
-  userLogin: () => async (dispatch: AppDispatch) => {
+  userLogin: (token: string) => (dispatch: AppDispatch) => {
+    localStorage.setItem("access_token", token)
     dispatch(UserActionCreators.setIsAuth(true))
-    dispatch(UserActionCreators.setUser(MOCK_USER))
 
     setAuthHeaders()
+  },
+
+  checkUserLogin: () => (dispatch: AppDispatch) => {
+    if (localStorage.getItem("access_token")) {
+      dispatch(UserActionCreators.setIsAuth(true))
+
+      setAuthHeaders()
+    }
   },
 
   userLogout: () => (dispatch: AppDispatch) => {
