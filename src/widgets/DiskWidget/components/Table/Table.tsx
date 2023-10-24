@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { VModal } from "@/shared/ui"
 import "./Table.scss"
 import {
@@ -7,8 +7,10 @@ import {
   TableContentMockOwnerColorEnum,
 } from "../../types"
 import { InfoModal } from "../../components"
+import { useActions } from "@/shared/hooks/useActions"
 
 const Table = () => {
+  const { getFiles } = useActions()
   const [isInfoModalOpen, setIsInfoModalOpen] = useState<boolean>(false)
   const [currentInfo, setCurrentInfo] = useState<ITableContentMock | null>(null)
   const content: ITableContentMock[] = [
@@ -132,6 +134,10 @@ const Table = () => {
       updated_at: "2 month ago",
     },
   ]
+
+  useEffect(() => {
+    getFiles()
+  }, [])
 
   const findInfoById = (id: number) => {
     setCurrentInfo(

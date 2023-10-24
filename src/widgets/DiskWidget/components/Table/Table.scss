@@ -15,6 +15,10 @@
     padding: rem(16px);
     background: #fafafa;
 
+    .table__row {
+      padding: rem(0 16px);
+    }
+
     .table__col {
       font-size: rem(14px);
       line-height: 150%;

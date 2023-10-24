@@ -1,0 +1,37 @@
+.default-modal {
+  width: rem(504px);
+  padding: rem(20px);
+  background: #ffffff;
+  border-radius: rem(12px);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-title {
+      font-size: rem(18px);
+      font-weight: 500;
+      line-height: 150%;
+    }
+
+    &-close {
+      width: rem(24px);
+      height: rem(24px);
+      cursor: pointer;
+      background: url("../../../shared/assets/img/close.svg") center / contain
+        no-repeat;
+    }
+  }
+
+  &__body {
+    margin: rem(32px 0);
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: rem(12px);
+  }
+}

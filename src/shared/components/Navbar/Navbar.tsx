@@ -2,10 +2,17 @@ import { useState } from "react"
 import "./Navbar.scss"
 import { VInput } from "@/shared/ui"
 import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
+import { searchFiles } from "@/shared/api/file"
 
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState<string>("")
   const { User } = useTypedSelector((state) => state.user)
+
+  const searchHandler = async (value: string) => {
+    setSearchValue(value)
+
+    await searchFiles(searchValue)
+  }
 
   return (
     <div className="navbar">
@@ -21,7 +28,7 @@ const Navbar = () => {
           <div className="navbar__search">
             <VInput
               value={searchValue}
-              setValue={setSearchValue}
+              setValue={searchHandler}
               placeholder="Search here..."
               isSearch
             />

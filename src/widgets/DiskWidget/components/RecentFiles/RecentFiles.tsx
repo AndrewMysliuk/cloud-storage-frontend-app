@@ -1,22 +1,29 @@
+import { useState } from "react"
 import "./RecentFiles.scss"
-import { VButton } from "@/shared/ui"
-// import Image1 from "../../../../shared/assets/img/recent-img/image1.png"
-// import Image2 from "../../../../shared/assets/img/recent-img/image2.png"
-// import Image3 from "../../../../shared/assets/img/recent-img/image3.png"
-// import Image4 from "../../../../shared/assets/img/recent-img/image4.png"
-// import Image5 from "../../../../shared/assets/img/recent-img/image5.png"
+import { VButton, VModal } from "@/shared/ui"
+import CreateDirectoryModal from "../CreateDirectoryModal"
 
 const RecentFiles = () => {
-  return (
-    <div className="recent-files">
-      <div className="recent-files__header">
-        {/* <div className="recent-files__header-title">Recent</div> */}
-        <div className="recent-files__header-btn">
-          <VButton type="button" title="New Directory" isPlusIcon isBlueColor />
-        </div>
-      </div>
+  const [isCreateDirectoryModalOpen, setIsCreateDirectoryModalOpen] =
+    useState<boolean>(false)
 
-      {/* <div className="recent-files__content">
+  return (
+    <div>
+      <div className="recent-files">
+        <div className="recent-files__header">
+          {/* <div className="recent-files__header-title">Recent</div> */}
+          <div className="recent-files__header-btn">
+            <VButton
+              type="button"
+              title="New Directory"
+              isPlusIcon
+              isBlueColor
+              clickValue={() => setIsCreateDirectoryModalOpen(true)}
+            />
+          </div>
+        </div>
+
+        {/* <div className="recent-files__content">
         <div className="recent-files__card">
           <div className="recent-files__card-wrap">
             <div className="recent-files__card-icon" />
@@ -27,51 +34,18 @@ const RecentFiles = () => {
             style={{ backgroundImage: `url(${Image1})` }}
           />
         </div>
-
-        <div className="recent-files__card">
-          <div className="recent-files__card-wrap">
-            <div className="recent-files__card-icon" />
-            <div className="recent-files__card-title">Rating UI design.svg</div>
-          </div>
-          <div
-            className="recent-files__card-preview"
-            style={{ backgroundImage: `url(${Image2})` }}
-          />
-        </div>
-
-        <div className="recent-files__card">
-          <div className="recent-files__card-wrap">
-            <div className="recent-files__card-icon" />
-            <div className="recent-files__card-title">Rating UI design.svg</div>
-          </div>
-          <div
-            className="recent-files__card-preview"
-            style={{ backgroundImage: `url(${Image3})` }}
-          />
-        </div>
-
-        <div className="recent-files__card">
-          <div className="recent-files__card-wrap">
-            <div className="recent-files__card-icon" />
-            <div className="recent-files__card-title">Rating UI design.svg</div>
-          </div>
-          <div
-            className="recent-files__card-preview"
-            style={{ backgroundImage: `url(${Image4})` }}
-          />
-        </div>
-
-        <div className="recent-files__card">
-          <div className="recent-files__card-wrap">
-            <div className="recent-files__card-icon" />
-            <div className="recent-files__card-title">Rating UI design.svg</div>
-          </div>
-          <div
-            className="recent-files__card-preview"
-            style={{ backgroundImage: `url(${Image5})` }}
-          />
-        </div>
       </div> */}
+      </div>
+
+      <VModal
+        center
+        isOpen={isCreateDirectoryModalOpen}
+        closeModal={() => setIsCreateDirectoryModalOpen(false)}
+      >
+        <CreateDirectoryModal
+          closeModal={() => setIsCreateDirectoryModalOpen(false)}
+        />
+      </VModal>
     </div>
   )
 }
