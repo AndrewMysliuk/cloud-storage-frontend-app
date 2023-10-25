@@ -102,4 +102,31 @@
       flex: 0 0 4.76%;
     }
   }
+
+  &__uploader {
+    height: calc(100vh - 240px);
+    border: rem(2px dashed #454545);
+    border-radius: rem(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &-icon {
+      width: rem(86px);
+      height: rem(86px);
+      background: url("../../../../shared/assets/img/table/upload-icon.svg")
+        center / contain no-repeat;
+    }
+
+    &-desc {
+      margin-top: rem(12px);
+      font-size: rem(32px);
+      text-align: center;
+    }
+
+    &-btn {
+      margin-top: rem(12px);
+    }
+  }
 }

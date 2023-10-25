@@ -25,6 +25,60 @@ export const createFolder = async (
   }
 }
 
+export const deleteFile = async (file_id: uuid): Promise<IFile | null> => {
+  try {
+    const response: AxiosResponse<IFile> = await axios({
+      url: `/api/storage/delete?id=${file_id}`,
+      method: "DELETE",
+    })
+
+    const { data }: { data: IFile } = response
+
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const downloadFile = async (file_id: uuid): Promise<IFile | null> => {
+  try {
+    const response: AxiosResponse<IFile> = await axios({
+      url: `/api/storage/download?id=${file_id}`,
+      method: "GET",
+    })
+
+    const { data }: { data: IFile } = response
+
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const uploadFile = async (
+  file: File,
+  parent: uuid | null
+): Promise<IFile | null> => {
+  try {
+    const formData = new FormData()
+    formData.append("file", file)
+
+    if (parent) formData.append("parent", parent)
+
+    const response: AxiosResponse<IFile> = await axios({
+      url: "/api/storage/upload",
+      method: "POST",
+      data: formData,
+    })
+
+    const { data }: { data: IFile } = response
+
+    return data
+  } catch {
+    return null
+  }
+}
+
 export const getFiles = async (
   parent: uuid | null = null
 ): Promise<IFile[] | null> => {

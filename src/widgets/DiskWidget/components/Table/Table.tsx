@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { VModal } from "@/shared/ui"
+import { VModal, VUploader } from "@/shared/ui"
 import "./Table.scss"
 import {
   ITableContentMock,
@@ -12,6 +12,7 @@ import { useActions } from "@/shared/hooks/useActions"
 const Table = () => {
   const { getFiles } = useActions()
   const [isInfoModalOpen, setIsInfoModalOpen] = useState<boolean>(false)
+  const [isDragEnter, setIsDragEnter] = useState<boolean>(false)
   const [currentInfo, setCurrentInfo] = useState<ITableContentMock | null>(null)
   const content: ITableContentMock[] = [
     {
@@ -146,6 +147,35 @@ const Table = () => {
     setIsInfoModalOpen(true)
   }
 
+  const uploaderHandler = (value: FileList | null) => {
+    console.log(value)
+  }
+
+  const dragEnterHandler = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    event.stopPropagation()
+    setIsDragEnter(true)
+  }
+
+  const dragLeaveHandler = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    event.stopPropagation()
+    setIsDragEnter(false)
+  }
+
+  const dropHandler = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    event.stopPropagation()
+    const files = event.dataTransfer.files
+    console.log(files)
+
+    // for (let i = 0; i < files.length; i++) {
+    //   uploadUserFiles(files[i], currentDir)
+    // }
+
+    setIsDragEnter(false)
+  }
+
   return (
     <div>
       <div className="table">
@@ -160,50 +190,72 @@ const Table = () => {
           </div>
         </div>
         <div className="table__body">
-          <div className="table__body-container">
-            {content.map((item: any) => (
-              <div
-                className="table__row"
-                key={item.id}
-                onClick={() => findInfoById(item.id)}
-              >
-                <div className="table__col --name">
-                  <div className="disk__table-wrapper">
-                    <div
-                      className={`disk__table-image ${
-                        item.type ? "--" + item.type : ""
-                      }`}
-                    />
-                    <div className="disk__table-title">{item.name}</div>
-                  </div>
-                </div>
-                <div className="table__col --tag">
-                  <div className="disk__table-desc">{item.tag}</div>
-                </div>
-                <div className="table__col --timestamp">
-                  <div className="disk__table-desc">{item.created_at}</div>
-                </div>
-                <div className="table__col --owner">
-                  <div className="disk__table-wrapper">
-                    <div
-                      className={`disk__table-short ${
-                        item.owner_color ? "--" + item.owner_color : ""
-                      }`}
-                    >
-                      {item.owner_short}
+          {!isDragEnter ? (
+            <div
+              className="table__body-container"
+              onDragEnter={dragEnterHandler}
+              onDragLeave={dragLeaveHandler}
+              onDragOver={dragEnterHandler}
+            >
+              {content.map((item: any) => (
+                <div
+                  className="table__row"
+                  key={item.id}
+                  onClick={() => findInfoById(item.id)}
+                >
+                  <div className="table__col --name">
+                    <div className="disk__table-wrapper">
+                      <div
+                        className={`disk__table-image ${
+                          item.type ? "--" + item.type : ""
+                        }`}
+                      />
+                      <div className="disk__table-title">{item.name}</div>
                     </div>
-                    <div className="disk__table-name">{item.owner_name}</div>
+                  </div>
+                  <div className="table__col --tag">
+                    <div className="disk__table-desc">{item.tag}</div>
+                  </div>
+                  <div className="table__col --timestamp">
+                    <div className="disk__table-desc">{item.created_at}</div>
+                  </div>
+                  <div className="table__col --owner">
+                    <div className="disk__table-wrapper">
+                      <div
+                        className={`disk__table-short ${
+                          item.owner_color ? "--" + item.owner_color : ""
+                        }`}
+                      >
+                        {item.owner_short}
+                      </div>
+                      <div className="disk__table-name">{item.owner_name}</div>
+                    </div>
+                  </div>
+                  <div className="table__col --modified">
+                    <div className="disk__table-desc">{item.updated_at}</div>
+                  </div>
+                  <div className="table__col --menu">
+                    <div className="disk__table-menu" />
                   </div>
                 </div>
-                <div className="table__col --modified">
-                  <div className="disk__table-desc">{item.updated_at}</div>
-                </div>
-                <div className="table__col --menu">
-                  <div className="disk__table-menu" />
-                </div>
+              ))}
+            </div>
+          ) : (
+            <div
+              className="table__uploader"
+              onDrop={dropHandler}
+              onDragEnter={dragEnterHandler}
+              onDragLeave={dragLeaveHandler}
+              onDragOver={dragEnterHandler}
+            >
+              <div className="table__uploader-icon" />
+              <div className="table__uploader-desc">Drag and Drop here</div>
+              <div className="table__uploader-desc">or</div>
+              <div className="table__uploader-btn">
+                <VUploader uploadHandler={uploaderHandler} />
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 

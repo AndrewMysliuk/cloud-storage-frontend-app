@@ -3,15 +3,19 @@ import "./Navbar.scss"
 import { VInput } from "@/shared/ui"
 import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
 import { searchFiles } from "@/shared/api/file"
+import { debounce } from "lodash"
 
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState<string>("")
   const { User } = useTypedSelector((state) => state.user)
 
-  const searchHandler = async (value: string) => {
-    setSearchValue(value)
+  const debouncedSearchFiles = debounce(() => {
+    searchFiles(searchValue)
+  }, 500)
 
-    await searchFiles(searchValue)
+  const changeValueHandler = (value: string) => {
+    setSearchValue(value)
+    debouncedSearchFiles()
   }
 
   return (
@@ -28,7 +32,7 @@ const Navbar = () => {
           <div className="navbar__search">
             <VInput
               value={searchValue}
-              setValue={searchHandler}
+              setValue={changeValueHandler}
               placeholder="Search here..."
               isSearch
             />

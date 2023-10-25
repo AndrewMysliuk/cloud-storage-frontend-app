@@ -1,0 +1,26 @@
+@import "../../../app/styles/mixins/mixins";
+
+.v-uploader {
+  &__input {
+    display: none;
+  }
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: rem(10px 20px);
+    border-radius: rem(5px);
+    position: relative;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: #37a0ea;
+    color: #ffffff;
+    font-size: rem(14px);
+    line-height: rem(150%);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+}

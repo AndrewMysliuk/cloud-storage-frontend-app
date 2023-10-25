@@ -1,11 +1,15 @@
 import { useState } from "react"
 import "./RecentFiles.scss"
-import { VButton, VModal } from "@/shared/ui"
+import { VButton, VModal, VUploader } from "@/shared/ui"
 import CreateDirectoryModal from "../CreateDirectoryModal"
 
 const RecentFiles = () => {
   const [isCreateDirectoryModalOpen, setIsCreateDirectoryModalOpen] =
     useState<boolean>(false)
+
+  const uploaderHandler = (value: FileList | null) => {
+    console.log(value)
+  }
 
   return (
     <div>
@@ -13,6 +17,7 @@ const RecentFiles = () => {
         <div className="recent-files__header">
           {/* <div className="recent-files__header-title">Recent</div> */}
           <div className="recent-files__header-btn">
+            <VUploader uploadHandler={uploaderHandler} />
             <VButton
               type="button"
               title="New Directory"

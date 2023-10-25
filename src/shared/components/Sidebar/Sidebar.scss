@@ -26,7 +26,8 @@
     &-logo {
       width: rem(34px);
       height: rem(34px);
-      background: url("../../assets/img/logo-example.svg");
+      background: url("../../assets/img/logo-example.svg") center / contain
+        no-repeat;
     }
 
     &-title {
@@ -85,32 +86,39 @@
 
       &.--arrow {
         margin-right: rem(-10px);
-        background: url("../../assets/img/arrow-down.svg");
+        background: url("../../assets/img/arrow-down.svg") center / contain
+          no-repeat;
         transform: rotate(-90deg);
       }
 
       &.--storage {
-        background: url("../../assets/img/menu/storage.svg");
+        background: url("../../assets/img/menu/storage.svg") center / contain
+          no-repeat;
       }
 
       &.--starred {
-        background: url("../../assets/img/menu/star.svg");
+        background: url("../../assets/img/menu/star.svg") center / contain
+          no-repeat;
       }
 
       &.--shared {
-        background: url("../../assets/img/menu/shared.svg");
+        background: url("../../assets/img/menu/shared.svg") center / contain
+          no-repeat;
       }
 
       &.--statistics {
-        background: url("../../assets/img/menu/statistic.svg");
+        background: url("../../assets/img/menu/statistic.svg") center / contain
+          no-repeat;
       }
 
       &.--setting {
-        background: url("../../assets/img/menu/settings.svg");
+        background: url("../../assets/img/menu/settings.svg") center / contain
+          no-repeat;
       }
 
       &.--folder {
-        background: url("../../assets/img/menu/folder.svg");
+        background: url("../../assets/img/menu/folder.svg") center / contain
+          no-repeat;
       }
     }
 
@@ -136,7 +144,8 @@
     &-icon {
       width: rem(36px);
       height: rem(36px);
-      background: url("../../assets/img/cloud-icon.svg");
+      background: url("../../assets/img/cloud-icon.svg") center / contain
+        no-repeat;
     }
 
     &-title {
