@@ -2,13 +2,22 @@ import { useState } from "react"
 import "./RecentFiles.scss"
 import { VButton, VModal, VUploader } from "@/shared/ui"
 import CreateDirectoryModal from "../CreateDirectoryModal"
+import { useActions } from "@/shared/hooks/useActions"
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
 
 const RecentFiles = () => {
+  const { uploadUserFiles } = useActions()
+  const { currentFolder } = useTypedSelector((store) => store.file)
   const [isCreateDirectoryModalOpen, setIsCreateDirectoryModalOpen] =
     useState<boolean>(false)
 
-  const uploaderHandler = (value: FileList | null) => {
-    console.log(value)
+  const uploaderHandler = (files: FileList | null) => {
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        console.log(files[i].name)
+        uploadUserFiles(files[i], currentFolder)
+      }
+    }
   }
 
   return (

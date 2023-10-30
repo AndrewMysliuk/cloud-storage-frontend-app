@@ -1,6 +1,7 @@
 import { FC, useState } from "react"
 import { VButton, VInput } from "@/shared/ui"
-import { createFolder } from "@/shared/api/file"
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
+import { useActions } from "@/shared/hooks/useActions"
 
 interface CreateDirectoryModalProps {
   closeModal: () => void
@@ -9,11 +10,13 @@ interface CreateDirectoryModalProps {
 const CreateDirectoryModal: FC<CreateDirectoryModalProps> = ({
   closeModal,
 }) => {
+  const { createFolder } = useActions()
   const [folderName, setFolderName] = useState<string>("")
+  const { currentFolder } = useTypedSelector((store) => store.file)
 
   const createFolderHandler = async () => {
     if (folderName) {
-      await createFolder(null, folderName)
+      await createFolder(currentFolder, folderName)
       closeModal()
     }
   }

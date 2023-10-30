@@ -1,154 +1,76 @@
-import { useEffect, useState } from "react"
-import { VModal, VUploader } from "@/shared/ui"
 import "./Table.scss"
-import {
-  ITableContentMock,
-  TableContentMockTypeEnum,
-  TableContentMockOwnerColorEnum,
-} from "../../types"
-import { InfoModal } from "../../components"
+import { useEffect, useState } from "react"
 import { useActions } from "@/shared/hooks/useActions"
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
+import { VModal, VUploader } from "@/shared/ui"
+import { IFile, IFileNavigation, FileTypeEnum } from "@/shared/types/IFile"
+import { uuid } from "@/shared/types/ICommon"
+import { shortDate } from "@/shared/helpers/timestampFormats"
+import { InfoModal } from "../../components"
 
 const Table = () => {
-  const { getFiles } = useActions()
+  const {
+    getFiles,
+    uploadUserFiles,
+    setCurrentFolder,
+    pushNavigationStack,
+    popNavigationStack,
+  } = useActions()
+  const { Files, currentFolder, navigationStack } = useTypedSelector(
+    (store) => store.file
+  )
+  const { User } = useTypedSelector((store) => store.user)
   const [isInfoModalOpen, setIsInfoModalOpen] = useState<boolean>(false)
   const [isDragEnter, setIsDragEnter] = useState<boolean>(false)
-  const [currentInfo, setCurrentInfo] = useState<ITableContentMock | null>(null)
-  const content: ITableContentMock[] = [
-    {
-      id: 1,
-      created_at: "12 Feb 2022",
-      type: TableContentMockTypeEnum.FOLDER,
-      name: "Defect images",
-      tag: "#defect",
-      owner_name: "Shuichi Akai",
-      owner_short: "SA",
-      owner_color: TableContentMockOwnerColorEnum.RED,
-      updated_at: "1 days ago",
-    },
-
-    {
-      id: 2,
-      created_at: "14 Feb 2022",
-      type: TableContentMockTypeEnum.FOLDER,
-      name: "Assets",
-      tag: "#3dgltf",
-      owner_name: "Shuichi Akai",
-      owner_short: "SA",
-      owner_color: TableContentMockOwnerColorEnum.RED,
-      updated_at: "2 days ago",
-    },
-
-    {
-      id: 3,
-      created_at: "19 Feb 2022",
-      type: TableContentMockTypeEnum.FOLDER,
-      name: "UI files",
-      tag: "#figmafiles",
-      owner_name: "Jodie Starling",
-      owner_short: "JS",
-      owner_color: TableContentMockOwnerColorEnum.ORANGE,
-      updated_at: "5 days ago",
-    },
-
-    {
-      id: 4,
-      created_at: "27 Feb 2022",
-      type: TableContentMockTypeEnum.FOLDER,
-      name: "Documentation",
-      tag: "#document",
-      owner_name: "Shuichi Akai",
-      owner_short: "SA",
-      owner_color: TableContentMockOwnerColorEnum.ORANGE,
-      updated_at: "8 days ago",
-    },
-
-    {
-      id: 5,
-      created_at: "13 Mar 2022",
-      type: TableContentMockTypeEnum.IMAGE,
-      name: "3d credit card .jpg",
-      tag: "#3ddesign",
-      owner_name: "Furuya Rei",
-      owner_short: "FR",
-      owner_color: TableContentMockOwnerColorEnum.PURPLE,
-      updated_at: "14 days ago",
-    },
-
-    {
-      id: 6,
-      created_at: "13 Mar 2022",
-      type: TableContentMockTypeEnum.IMAGE,
-      name: "panel 1 image.jpg",
-      tag: "#bgn",
-      owner_name: "Furuya Rei",
-      owner_short: "FR",
-      owner_color: TableContentMockOwnerColorEnum.PURPLE,
-      updated_at: "14 days ago",
-    },
-
-    {
-      id: 7,
-      created_at: "06 Apr 2022",
-      type: TableContentMockTypeEnum.DOCUMENT,
-      name: "branding details.doc",
-      tag: "#branding",
-      owner_name: "James Black",
-      owner_short: "JB",
-      owner_color: TableContentMockOwnerColorEnum.GREEN,
-      updated_at: "24 days ago",
-    },
-
-    {
-      id: 8,
-      created_at: "07 May 2022",
-      type: TableContentMockTypeEnum.TABLE,
-      name: "store 1 dataset.csv",
-      tag: "#storedataset",
-      owner_name: "Furuya Rei",
-      owner_short: "FR",
-      owner_color: TableContentMockOwnerColorEnum.PURPLE,
-      updated_at: "1 month ago",
-    },
-
-    {
-      id: 9,
-      created_at: "11 Jul 2022",
-      type: TableContentMockTypeEnum.VIDEO,
-      name: "promotion video.mp4",
-      tag: "#promotion",
-      owner_name: "Furuya Rei",
-      owner_short: "FR",
-      owner_color: TableContentMockOwnerColorEnum.PURPLE,
-      updated_at: "2 month ago",
-    },
-
-    {
-      id: 10,
-      created_at: "12 Jul 2022",
-      type: TableContentMockTypeEnum.DOCUMENT,
-      name: "Not you lyrics.doc",
-      tag: "#lyrics",
-      owner_name: "Andre Camel",
-      owner_short: "AC",
-      owner_color: TableContentMockOwnerColorEnum.ORANGE,
-      updated_at: "2 month ago",
-    },
-  ]
+  const [currentInfo, setCurrentInfo] = useState<IFile | null>(null)
 
   useEffect(() => {
-    getFiles()
-  }, [])
+    getFiles(currentFolder)
+  }, [currentFolder])
 
-  const findInfoById = (id: number) => {
-    setCurrentInfo(
-      content.find((item: ITableContentMock) => item.id === id) ?? null
-    )
+  const backFromFolder = () => {
+    let prevFileInStack = {} as IFileNavigation
+
+    if (navigationStack.length) {
+      prevFileInStack = navigationStack[navigationStack.length - 2]
+      popNavigationStack()
+    }
+
+    setCurrentFolder(prevFileInStack?.id ?? null)
+  }
+
+  const findInfoById = (item: IFile | null) => {
+    setCurrentInfo(item)
     setIsInfoModalOpen(true)
   }
 
-  const uploaderHandler = (value: FileList | null) => {
-    console.log(value)
+  const openFolder = (item: IFile | null) => {
+    if (item) {
+      pushNavigationStack({
+        name: item.name,
+        type: item.type,
+        id: item._id,
+      })
+      setCurrentFolder(item._id)
+    }
+  }
+
+  const rowClickHandler = (id: uuid) => {
+    const currentFile = Files.find((item: IFile) => item._id === id) ?? null
+
+    if (currentFile?.type === FileTypeEnum.DIRECTORY) {
+      openFolder(currentFile)
+    } else {
+      findInfoById(currentFile)
+    }
+  }
+
+  const uploaderHandler = (files: FileList | null) => {
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        uploadUserFiles(files[i], currentFolder)
+      }
+    }
   }
 
   const dragEnterHandler = (event: React.DragEvent<HTMLDivElement>) => {
@@ -167,11 +89,10 @@ const Table = () => {
     event.preventDefault()
     event.stopPropagation()
     const files = event.dataTransfer.files
-    console.log(files)
 
-    // for (let i = 0; i < files.length; i++) {
-    //   uploadUserFiles(files[i], currentDir)
-    // }
+    for (let i = 0; i < files.length; i++) {
+      uploadUserFiles(files[i], currentFolder)
+    }
 
     setIsDragEnter(false)
   }
@@ -197,11 +118,16 @@ const Table = () => {
               onDragLeave={dragLeaveHandler}
               onDragOver={dragEnterHandler}
             >
-              {content.map((item: any) => (
+              {currentFolder && (
+                <div className="table__row" onClick={() => backFromFolder()}>
+                  <div className="disk__table-back">. .</div>
+                </div>
+              )}
+              {Files.map((item: IFile) => (
                 <div
                   className="table__row"
-                  key={item.id}
-                  onClick={() => findInfoById(item.id)}
+                  key={item._id}
+                  onClick={() => rowClickHandler(item._id)}
                 >
                   <div className="table__col --name">
                     <div className="disk__table-wrapper">
@@ -214,25 +140,28 @@ const Table = () => {
                     </div>
                   </div>
                   <div className="table__col --tag">
-                    <div className="disk__table-desc">{item.tag}</div>
+                    <div className="disk__table-desc">#common</div>
                   </div>
                   <div className="table__col --timestamp">
-                    <div className="disk__table-desc">{item.created_at}</div>
+                    <div className="disk__table-desc">
+                      {shortDate(item.created_at)}
+                    </div>
                   </div>
                   <div className="table__col --owner">
                     <div className="disk__table-wrapper">
-                      <div
-                        className={`disk__table-short ${
-                          item.owner_color ? "--" + item.owner_color : ""
-                        }`}
-                      >
-                        {item.owner_short}
+                      <div className="disk__table-short --orange">
+                        {User.first_name?.[0]}
+                        {User.last_name?.[0]}
                       </div>
-                      <div className="disk__table-name">{item.owner_name}</div>
+                      <div className="disk__table-name">
+                        {User.first_name} {User.last_name}
+                      </div>
                     </div>
                   </div>
                   <div className="table__col --modified">
-                    <div className="disk__table-desc">{item.updated_at}</div>
+                    <div className="disk__table-desc">
+                      {shortDate(item.updated_at)}
+                    </div>
                   </div>
                   <div className="table__col --menu">
                     <div className="disk__table-menu" />

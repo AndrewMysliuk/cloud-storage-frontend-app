@@ -37,6 +37,8 @@
       border-radius: rem(5px);
       transition: all 0.3s ease;
       cursor: pointer;
+      height: rem(52px);
+      box-sizing: border-box;
 
       &:hover {
         background: #f2f2f2;

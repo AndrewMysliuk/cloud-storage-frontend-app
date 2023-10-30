@@ -1,14 +1,19 @@
 import { FC } from "react"
 import "./InfoModal.scss"
-import { ITableContentMock } from "../../types"
 import { VButton } from "@/shared/ui"
+import { IFile, FileTypeEnum } from "@/shared/types/IFile"
+import { shortDate } from "@/shared/helpers/timestampFormats"
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
+import sizeFormat from "@/shared/utils/sizeFormat"
 
 interface InfoModalProps {
   closeModal: () => void
-  fileInfo: ITableContentMock | null
+  fileInfo: IFile | null
 }
 
 const InfoModal: FC<InfoModalProps> = ({ closeModal, fileInfo }) => {
+  const { User } = useTypedSelector((store) => store.user)
+
   return (
     <div className="info-modal">
       <div className="info-modal__header">
@@ -22,13 +27,7 @@ const InfoModal: FC<InfoModalProps> = ({ closeModal, fileInfo }) => {
         <div className="info-modal__access">
           <div className="info-modal__access-title">Who has access</div>
           <div className="info-modal__access-owners">
-            <div
-              className={`info-modal__access-short ${
-                fileInfo?.owner_color ? "--" + fileInfo?.owner_color : ""
-              }`}
-            >
-              {fileInfo?.owner_short}
-            </div>
+            <div className="info-modal__access-short --orange">MK</div>
           </div>
           <div className="info-modal__access-btn">
             <VButton
@@ -53,36 +52,39 @@ const InfoModal: FC<InfoModalProps> = ({ closeModal, fileInfo }) => {
             <div className="info-modal__info-col --value">{fileInfo?.type}</div>
           </div>
 
-          <div className="info-modal__info-row">
-            <div className="info-modal__info-col --title">Size</div>
-            <div className="info-modal__info-col --value">1.2 MB</div>
-          </div>
+          {fileInfo?.type !== FileTypeEnum.DIRECTORY && (
+            <div className="info-modal__info-row">
+              <div className="info-modal__info-col --title">Size</div>
+              <div className="info-modal__info-col --value">
+                {sizeFormat(fileInfo!.size)}
+              </div>
+            </div>
+          )}
 
           <div className="info-modal__info-row">
             <div className="info-modal__info-col --title">Owner</div>
             <div className="info-modal__info-col --value">
-              <div
-                className={`info-modal__access-short ${
-                  fileInfo?.owner_color ? "--" + fileInfo?.owner_color : ""
-                }`}
-              >
-                {fileInfo?.owner_short}
+              <div className="info-modal__access-short --orange">
+                {User.first_name?.[0]}
+                {User.last_name?.[0]}
               </div>
-              <div>{fileInfo?.owner_name}</div>
+              <div>
+                {User.first_name} {User.last_name}
+              </div>
             </div>
           </div>
 
           <div className="info-modal__info-row">
             <div className="info-modal__info-col --title">Modified</div>
             <div className="info-modal__info-col --value">
-              {fileInfo?.updated_at}
+              {shortDate(fileInfo!.updated_at)}
             </div>
           </div>
 
           <div className="info-modal__info-row">
             <div className="info-modal__info-col --title">Created</div>
             <div className="info-modal__info-col --value">
-              {fileInfo?.created_at}
+              {shortDate(fileInfo!.created_at)}
             </div>
           </div>
         </div>

@@ -34,7 +34,7 @@
         margin: rem(-12.5px 0 0 -12.5px);
       }
 
-      &.--folder {
+      &.--directory {
         background: #9eb0bd;
 
         &::before {
@@ -52,7 +52,8 @@
         }
       }
 
-      &.--document {
+      &.--document,
+      &.--file {
         background: #60bbfb;
 
         &::before {
@@ -84,6 +85,10 @@
       font-size: rem(14px);
       font-weight: 500;
       line-height: 150%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: rem(300px);
     }
 
     &-desc {
@@ -102,20 +107,8 @@
       font-size: rem(8.46px);
       color: #f9fafb;
 
-      &.--red {
-        background: #db4040;
-      }
-
       &.--orange {
         background: #f4a257;
-      }
-
-      &.--purple {
-        background: #5f40db;
-      }
-
-      &.--green {
-        background: #4b4b4b;
       }
     }
 
@@ -129,6 +122,10 @@
       height: rem(30px);
       cursor: pointer;
       background: url("../../shared/assets/img/burger.svg");
+    }
+
+    &-back {
+      font-size: rem(22px);
     }
   }
 }
