@@ -1,5 +1,5 @@
 import "./Table.scss"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useActions } from "@/shared/hooks/useActions"
 import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
 import { VModal, VUploader } from "@/shared/ui"
@@ -97,6 +97,15 @@ const Table = () => {
     setIsDragEnter(false)
   }
 
+  const contextMenuHandler = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    event.preventDefault()
+    event.stopPropagation()
+
+    console.log("KEKEKKE")
+  }
+
   return (
     <div>
       <div className="table">
@@ -119,7 +128,7 @@ const Table = () => {
               onDragOver={dragEnterHandler}
             >
               {currentFolder && (
-                <div className="table__row" onClick={() => backFromFolder()}>
+                <div className="table__row" onClick={backFromFolder}>
                   <div className="disk__table-back">. .</div>
                 </div>
               )}
@@ -164,7 +173,29 @@ const Table = () => {
                     </div>
                   </div>
                   <div className="table__col --menu">
-                    <div className="disk__table-menu" />
+                    <div
+                      className="disk__table-menu"
+                      onClick={contextMenuHandler}
+                    >
+                      <div className="disk__context">
+                        <div className="disk__context-point">
+                          <div className="disk__context-icon --edit" />
+                          <div className="disk__context-title">Rename File</div>
+                        </div>
+
+                        <div className="disk__context-point">
+                          <div className="disk__context-icon --download" />
+                          <div className="disk__context-title">
+                            Download File
+                          </div>
+                        </div>
+
+                        <div className="disk__context-point">
+                          <div className="disk__context-icon --delete" />
+                          <div className="disk__context-title">Delete File</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}

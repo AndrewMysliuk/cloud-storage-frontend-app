@@ -118,14 +118,71 @@
     }
 
     &-menu {
+      position: relative;
       width: rem(30px);
       height: rem(30px);
       cursor: pointer;
-      background: url("../../shared/assets/img/burger.svg");
+      background: url("../../shared/assets/img/burger.svg") center / contain
+        no-repeat;
     }
 
     &-back {
       font-size: rem(22px);
+    }
+  }
+
+  &__context {
+    position: absolute;
+    top: rem(20px);
+    left: rem(-150px);
+    width: rem(194px);
+    background: #ffffff;
+    border-radius: rem(12px);
+    box-sizing: border-box;
+    padding: rem(16px);
+    box-shadow: rem(rgba(100, 100, 111, 0.2) 0px 7px 29px 0px);
+    z-index: 100;
+
+    &-point {
+      display: flex;
+      align-items: center;
+      gap: rem(12px);
+      padding: rem(8px);
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+      border-radius: rem(8px);
+
+      &:not(:first-child) {
+        margin-top: rem(4px);
+      }
+
+      &:hover {
+        background: #f9fafb;
+      }
+    }
+
+    &-icon {
+      width: rem(20px);
+      height: rem(20px);
+
+      &.--edit {
+        background: url("../../shared/assets/img/edit.svg") center / contain
+          no-repeat;
+      }
+
+      &.--download {
+        background: url("../../shared/assets/img/download.svg") center / contain
+          no-repeat;
+      }
+
+      &.--delete {
+        background: url("../../shared/assets/img/binIcon.svg") center / contain
+          no-repeat;
+      }
+    }
+
+    &-title {
+      font-size: rem(16px);
     }
   }
 }
