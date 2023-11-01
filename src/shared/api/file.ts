@@ -40,16 +40,26 @@ export const deleteFile = async (file_id: uuid): Promise<IFile | null> => {
   }
 }
 
-export const downloadFile = async (file_id: uuid): Promise<IFile | null> => {
+export const downloadFile = async (file: IFile): Promise<void | null> => {
   try {
-    const response: AxiosResponse<IFile> = await axios({
-      url: `/api/storage/download?id=${file_id}`,
+    const response: AxiosResponse<Blob> = await axios({
+      url: `/api/storage/download?id=${file._id}`,
       method: "GET",
+      responseType: "blob",
     })
 
-    const { data }: { data: IFile } = response
+    const { data } = response
 
-    return data
+    if (data) {
+      const blob = new Blob([data], { type: data.type })
+      const downloadURL = window.URL.createObjectURL(blob)
+      const link = document.createElement("a")
+      link.href = downloadURL
+      link.download = file.name
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    }
   } catch {
     return null
   }

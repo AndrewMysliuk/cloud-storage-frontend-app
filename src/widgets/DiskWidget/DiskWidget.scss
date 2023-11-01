@@ -118,7 +118,6 @@
     }
 
     &-menu {
-      position: relative;
       width: rem(30px);
       height: rem(30px);
       cursor: pointer;
@@ -133,8 +132,8 @@
 
   &__context {
     position: absolute;
-    top: rem(20px);
-    left: rem(-150px);
+    top: rem(40px);
+    right: rem(60px);
     width: rem(194px);
     background: #ffffff;
     border-radius: rem(12px);
@@ -144,6 +143,7 @@
     z-index: 100;
 
     &-point {
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: rem(12px);

@@ -14,7 +14,6 @@ const RecentFiles = () => {
   const uploaderHandler = (files: FileList | null) => {
     if (files) {
       for (let i = 0; i < files.length; i++) {
-        console.log(files[i].name)
         uploadUserFiles(files[i], currentFolder)
       }
     }

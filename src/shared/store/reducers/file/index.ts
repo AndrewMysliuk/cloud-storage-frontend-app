@@ -21,6 +21,12 @@ export default function userReducer(
     case FileActionsEnum.ADD_FILE:
       return { ...state, Files: [...state.Files, action.payload] }
 
+    case FileActionsEnum.REMOVE_FILE:
+      return {
+        ...state,
+        Files: state.Files.filter((file) => file._id !== action.payload._id),
+      }
+
     case FileActionsEnum.PUSH_NAVIGATION_STACK:
       return {
         ...state,

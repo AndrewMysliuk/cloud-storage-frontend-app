@@ -74,6 +74,11 @@
     }
   }
 
+  &__wrapper {
+    width: 100%;
+    position: relative;
+  }
+
   &__row {
     display: flex;
     align-items: center;

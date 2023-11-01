@@ -1,5 +1,10 @@
 import { AppDispatch } from "../.."
-import { getFiles, uploadFile, createFolder } from "@/shared/api/file"
+import {
+  getFiles,
+  uploadFile,
+  createFolder,
+  deleteFile,
+} from "@/shared/api/file"
 import { uuid } from "@/shared/types/ICommon"
 import { IFile, IFileNavigation } from "@/shared/types/IFile"
 import {
@@ -9,6 +14,7 @@ import {
   AddFileAction,
   PushNavigationStack,
   PopNavigationStack,
+  RenameFileAction,
 } from "./types"
 
 export const FileActionCreators = {
@@ -20,6 +26,16 @@ export const FileActionCreators = {
   setFiles: (files: IFile[]): SetFilesAction => ({
     type: FileActionsEnum.SET_FILES,
     payload: files,
+  }),
+
+  addFile: (file: IFile): AddFileAction => ({
+    type: FileActionsEnum.ADD_FILE,
+    payload: file,
+  }),
+
+  removeFile: (file: IFile): RenameFileAction => ({
+    type: FileActionsEnum.REMOVE_FILE,
+    payload: file,
   }),
 
   pushNavigationStack: (item: IFileNavigation): PushNavigationStack => ({
@@ -39,10 +55,15 @@ export const FileActionCreators = {
     }
   },
 
-  addFile: (file: IFile): AddFileAction => ({
-    type: FileActionsEnum.ADD_FILE,
-    payload: file,
-  }),
+  deleteUserFile: (file: IFile) => async (dispatch: AppDispatch) => {
+    const result = await deleteFile(file._id)
+
+    if (result) {
+      dispatch(FileActionCreators.removeFile(file))
+    }
+  },
+
+  renameUserFile: (file: IFile) => async (dispatch: AppDispatch) => {},
 
   uploadUserFiles:
     (file: File, parent: uuid | null) => async (dispatch: AppDispatch) => {

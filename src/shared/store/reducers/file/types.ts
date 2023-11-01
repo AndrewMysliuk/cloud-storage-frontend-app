@@ -11,6 +11,7 @@ export enum FileActionsEnum {
   SET_CURRENT_FOLDER = "SET_CURRENT_FOLDER",
   SET_FILES = "SET_FILES",
   ADD_FILE = "ADD_FILE",
+  REMOVE_FILE = "REMOVE_FILE",
   PUSH_NAVIGATION_STACK = "PUSH_NAVIGATION_STACK",
   POP_NAVIGATION_STACK = "POP_NAVIGATION_STACK",
 }
@@ -39,9 +40,15 @@ export interface PopNavigationStack {
   type: FileActionsEnum.POP_NAVIGATION_STACK
 }
 
+export interface RenameFileAction {
+  type: FileActionsEnum.REMOVE_FILE
+  payload: IFile
+}
+
 export type FileAction =
   | SetCurrentFolderAction
   | SetFilesAction
   | AddFileAction
   | PushNavigationStack
   | PopNavigationStack
+  | RenameFileAction
