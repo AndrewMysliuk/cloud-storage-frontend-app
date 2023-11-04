@@ -1,4 +1,3 @@
-import { IFile } from "@/shared/types/IFile"
 import { FileState, FileActionsEnum, FileAction } from "./types"
 
 const initialStore: FileState = {
@@ -25,6 +24,14 @@ export default function userReducer(
       return {
         ...state,
         Files: state.Files.filter((file) => file._id !== action.payload._id),
+      }
+
+    case FileActionsEnum.REPLACE_FILE:
+      return {
+        ...state,
+        Files: state.Files.map((file) =>
+          file._id === action.payload._id ? action.payload : file
+        ),
       }
 
     case FileActionsEnum.PUSH_NAVIGATION_STACK:

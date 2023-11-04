@@ -1,6 +1,5 @@
 import { FC, useState } from "react"
 import { VButton, VInput } from "@/shared/ui"
-import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
 import { useActions } from "@/shared/hooks/useActions"
 import { IFile } from "@/shared/types/IFile"
 
@@ -13,10 +12,12 @@ const RenameFolderModal: FC<RenameFolderModalProps> = ({
   closeModal,
   file,
 }) => {
+  const { renameUserFile } = useActions()
   const [fileName, setFileName] = useState<string>("")
 
   const renameFileHandler = async () => {
-    if (fileName) {
+    if (fileName && file) {
+      renameUserFile(file, fileName)
       closeModal()
     }
   }
@@ -33,7 +34,7 @@ const RenameFolderModal: FC<RenameFolderModalProps> = ({
           <VInput
             value={fileName}
             setValue={setFileName}
-            placeholder="Folder Name"
+            placeholder="Enter New Name"
             type="text"
           />
         </div>
@@ -48,7 +49,7 @@ const RenameFolderModal: FC<RenameFolderModalProps> = ({
         />
         <VButton
           type="button"
-          title="Create"
+          title="Rename"
           clickValue={renameFileHandler}
           isBlueColor
         />

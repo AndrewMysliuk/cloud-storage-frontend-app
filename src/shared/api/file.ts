@@ -106,6 +106,28 @@ export const getFiles = async (
   }
 }
 
+export const renameFile = async (
+  id: uuid,
+  name: string
+): Promise<IFile | null> => {
+  try {
+    const response: AxiosResponse<IFile> = await axios({
+      url: "/api/storage/rename",
+      method: "POST",
+      data: {
+        id,
+        name,
+      },
+    })
+
+    const { data }: { data: IFile } = response
+
+    return data
+  } catch {
+    return null
+  }
+}
+
 export const searchFiles = async (
   search_name: string
 ): Promise<IFile[] | null> => {

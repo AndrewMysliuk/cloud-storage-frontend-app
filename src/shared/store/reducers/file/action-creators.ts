@@ -4,6 +4,7 @@ import {
   uploadFile,
   createFolder,
   deleteFile,
+  renameFile,
 } from "@/shared/api/file"
 import { uuid } from "@/shared/types/ICommon"
 import { IFile, IFileNavigation } from "@/shared/types/IFile"
@@ -15,6 +16,7 @@ import {
   PushNavigationStack,
   PopNavigationStack,
   RenameFileAction,
+  ReplaceFileAction,
 } from "./types"
 
 export const FileActionCreators = {
@@ -35,6 +37,11 @@ export const FileActionCreators = {
 
   removeFile: (file: IFile): RenameFileAction => ({
     type: FileActionsEnum.REMOVE_FILE,
+    payload: file,
+  }),
+
+  replaceFile: (file: IFile): ReplaceFileAction => ({
+    type: FileActionsEnum.REPLACE_FILE,
     payload: file,
   }),
 
@@ -63,7 +70,14 @@ export const FileActionCreators = {
     }
   },
 
-  renameUserFile: (file: IFile) => async (dispatch: AppDispatch) => {},
+  renameUserFile:
+    (file: IFile, name: string) => async (dispatch: AppDispatch) => {
+      const result = await renameFile(file._id, name)
+
+      if (result) {
+        dispatch(FileActionCreators.replaceFile(result))
+      }
+    },
 
   uploadUserFiles:
     (file: File, parent: uuid | null) => async (dispatch: AppDispatch) => {
