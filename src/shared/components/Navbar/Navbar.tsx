@@ -6,6 +6,7 @@ import { searchFiles } from "@/shared/api/file"
 import { debounce } from "lodash"
 
 const Navbar = () => {
+  const { navigationStack } = useTypedSelector((store) => store.file)
   const [searchValue, setSearchValue] = useState<string>("")
   const { User } = useTypedSelector((state) => state.user)
 
@@ -24,7 +25,13 @@ const Navbar = () => {
         <div className="navbar__chapter">
           <div className="navbar__chapter-link">
             <div className="navbar__chapter-icon --storage" />
-            <div className="navbar__chapter-title">Storage</div>
+            <div className="navbar__chapter-title">
+              Storage
+              {navigationStack.length > 0 &&
+                navigationStack.map((item) => (
+                  <div key={item.id}> &#8594; {item.name}</div>
+                ))}
+            </div>
           </div>
         </div>
 

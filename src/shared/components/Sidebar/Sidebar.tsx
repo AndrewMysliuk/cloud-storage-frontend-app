@@ -29,35 +29,10 @@ const Sidebar = () => {
 
           {isStorageOpen && (
             <div className="sidebar__menu-wrapper">
-              <div className="sidebar__link" style={{ paddingLeft: "15px" }}>
+              <div className="sidebar__link --padding-left">
                 <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --arrow" />
                   <div className="sidebar__link-icon --folder" />
-                  <div className="sidebar__link-title">Defect images</div>
-                </div>
-              </div>
-
-              <div className="sidebar__link" style={{ paddingLeft: "15px" }}>
-                <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --arrow" />
-                  <div className="sidebar__link-icon --folder" />
-                  <div className="sidebar__link-title">Assets</div>
-                </div>
-              </div>
-
-              <div className="sidebar__link" style={{ paddingLeft: "15px" }}>
-                <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --arrow" />
-                  <div className="sidebar__link-icon --folder" />
-                  <div className="sidebar__link-title">UI files</div>
-                </div>
-              </div>
-
-              <div className="sidebar__link" style={{ paddingLeft: "15px" }}>
-                <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --arrow" />
-                  <div className="sidebar__link-icon --folder" />
-                  <div className="sidebar__link-title">Documentation</div>
+                  <div className="sidebar__link-title">Files</div>
                 </div>
               </div>
 
@@ -65,20 +40,6 @@ const Sidebar = () => {
                 <div className="sidebar__link-wrapper">
                   <div className="sidebar__link-icon --starred" />
                   <div className="sidebar__link-title">Starred</div>
-                </div>
-              </div>
-
-              <div className="sidebar__link --padding-left">
-                <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --shared" />
-                  <div className="sidebar__link-title">Shared with me</div>
-                </div>
-              </div>
-
-              <div className="sidebar__link --padding-left">
-                <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --statistics" />
-                  <div className="sidebar__link-title">Statistics</div>
                 </div>
               </div>
 
