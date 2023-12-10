@@ -1,10 +1,8 @@
-import { useState } from "react"
 import "./Sidebar.scss"
 import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
 import sizeFormat from "@/shared/utils/sizeFormat"
 
 const Sidebar = () => {
-  const [isStorageOpen, setIsStorageOpen] = useState<boolean>(true)
   const { User } = useTypedSelector((state) => state.user)
 
   return (
@@ -16,41 +14,21 @@ const Sidebar = () => {
         </header>
 
         <nav className="sidebar__menu">
-          <div
-            className={`sidebar__link ${isStorageOpen ? "--active" : ""}`}
-            onClick={() => setIsStorageOpen(!isStorageOpen)}
-          >
-            <div className="sidebar__link-wrapper">
-              <div className="sidebar__link-icon --arrow" />
-              <div className="sidebar__link-icon --storage" />
-              <div className="sidebar__link-title">Storage</div>
+          <div className="sidebar__menu-wrapper">
+            <div className="sidebar__link --active">
+              <div className="sidebar__link-wrapper">
+                <div className="sidebar__link-icon --folder" />
+                <div className="sidebar__link-title">Files</div>
+              </div>
+            </div>
+
+            <div className="sidebar__link">
+              <div className="sidebar__link-wrapper">
+                <div className="sidebar__link-icon --starred" />
+                <div className="sidebar__link-title">Starred</div>
+              </div>
             </div>
           </div>
-
-          {isStorageOpen && (
-            <div className="sidebar__menu-wrapper">
-              <div className="sidebar__link --padding-left">
-                <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --folder" />
-                  <div className="sidebar__link-title">Files</div>
-                </div>
-              </div>
-
-              <div className="sidebar__link --padding-left">
-                <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --starred" />
-                  <div className="sidebar__link-title">Starred</div>
-                </div>
-              </div>
-
-              <div className="sidebar__link --padding-left">
-                <div className="sidebar__link-wrapper">
-                  <div className="sidebar__link-icon --setting" />
-                  <div className="sidebar__link-title">Setting</div>
-                </div>
-              </div>
-            </div>
-          )}
         </nav>
 
         <footer className="sidebar__footer">

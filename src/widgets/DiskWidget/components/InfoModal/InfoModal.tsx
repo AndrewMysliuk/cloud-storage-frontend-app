@@ -22,22 +22,6 @@ const InfoModal: FC<InfoModalProps> = ({ closeModal, fileInfo }) => {
       </div>
 
       <div className="info-modal__content">
-        <div className="info-modal__img" />
-
-        <div className="info-modal__access">
-          <div className="info-modal__access-title">Who has access</div>
-          <div className="info-modal__access-owners">
-            <div className="info-modal__access-short --orange">MK</div>
-          </div>
-          <div className="info-modal__access-btn">
-            <VButton
-              type="button"
-              title="Manage access"
-              isKeyIcon
-              isWhiteColor
-            />
-          </div>
-        </div>
 
         <div className="info-modal__info">
           <div className="info-modal__info-title">File details</div>

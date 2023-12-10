@@ -6,16 +6,18 @@ import { useActions } from "@/shared/hooks/useActions"
 import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
 
 const RecentFiles = () => {
-  const { uploadUserFiles } = useActions()
+  const { uploadUserFiles, userGetMe } = useActions()
   const { currentFolder } = useTypedSelector((store) => store.file)
   const [isCreateDirectoryModalOpen, setIsCreateDirectoryModalOpen] =
     useState<boolean>(false)
 
-  const uploaderHandler = (files: FileList | null) => {
+  const uploaderHandler = async (files: FileList | null) => {
     if (files) {
       for (let i = 0; i < files.length; i++) {
-        uploadUserFiles(files[i], currentFolder)
+        await uploadUserFiles(files[i], currentFolder)
       }
+
+      await userGetMe()
     }
   }
 

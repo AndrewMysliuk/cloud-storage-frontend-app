@@ -53,7 +53,6 @@ const Navbar = () => {
             <div className="navbar__info-name">
               {User.first_name} {User.last_name}
             </div>
-            <div className="navbar__info-burger" />
           </div>
         </div>
       </div>

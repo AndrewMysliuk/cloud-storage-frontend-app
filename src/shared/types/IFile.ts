@@ -27,5 +27,6 @@ export interface IFile {
   status: FileStatusEnum
   parent: uuid | null
   child: uuid[]
+  starred: boolean
   _id: uuid
 }

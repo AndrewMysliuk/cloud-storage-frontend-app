@@ -18,6 +18,7 @@ const Table = () => {
     deleteUserFile,
     pushNavigationStack,
     popNavigationStack,
+    userGetMe,
   } = useActions()
   const { Files, currentFolder, navigationStack } = useTypedSelector(
     (store) => store.file
@@ -96,11 +97,13 @@ const Table = () => {
     }
   }
 
-  const uploaderHandler = (files: FileList | null) => {
+  const uploaderHandler = async (files: FileList | null) => {
     if (files) {
       for (let i = 0; i < files.length; i++) {
-        uploadUserFiles(files[i], currentFolder)
+        await uploadUserFiles(files[i], currentFolder)
       }
+
+      await userGetMe()
     }
   }
 
@@ -222,23 +225,35 @@ const Table = () => {
                         onClick={() => renameFile(item)}
                       >
                         <div className="disk__context-icon --edit" />
-                        <div className="disk__context-title">Rename File</div>
+                        <div className="disk__context-title">
+                          {item.type === FileTypeEnum.FILE
+                            ? "Rename File"
+                            : "Rename Folder"}
+                        </div>
                       </div>
 
-                      <div
-                        className="disk__context-point"
-                        onClick={() => downloadFileHandler(item)}
-                      >
-                        <div className="disk__context-icon --download" />
-                        <div className="disk__context-title">Download File</div>
-                      </div>
+                      {item.type === FileTypeEnum.FILE && (
+                        <div
+                          className="disk__context-point"
+                          onClick={() => downloadFileHandler(item)}
+                        >
+                          <div className="disk__context-icon --download" />
+                          <div className="disk__context-title">
+                            Download File
+                          </div>
+                        </div>
+                      )}
 
                       <div
                         className="disk__context-point"
                         onClick={() => deleteFile(item)}
                       >
                         <div className="disk__context-icon --delete" />
-                        <div className="disk__context-title">Delete File</div>
+                        <div className="disk__context-title">
+                          {item.type === FileTypeEnum.FILE
+                            ? "Delete File"
+                            : "Delete Folder"}
+                        </div>
                       </div>
                     </div>
                   )}

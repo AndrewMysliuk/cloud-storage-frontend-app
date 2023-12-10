@@ -63,16 +63,6 @@
       background: #60bbfb;
     }
 
-    &.--active {
-      .sidebar__link-icon.--arrow {
-        transform: rotate(0deg);
-      }
-    }
-
-    &.--padding-left {
-      padding-left: rem(28px);
-    }
-
     &-wrapper {
       display: flex;
       align-items: center;
@@ -84,25 +74,8 @@
       height: rem(22.75px);
       transition: all 0.3s ease;
 
-      &.--arrow {
-        margin-right: rem(-10px);
-        background: url("../../assets/img/arrow-down.svg") center / contain
-          no-repeat;
-        transform: rotate(-90deg);
-      }
-
-      &.--storage {
-        background: url("../../assets/img/menu/storage.svg") center / contain
-          no-repeat;
-      }
-
       &.--starred {
         background: url("../../assets/img/menu/star.svg") center / contain
-          no-repeat;
-      }
-
-      &.--setting {
-        background: url("../../assets/img/menu/settings.svg") center / contain
           no-repeat;
       }
 

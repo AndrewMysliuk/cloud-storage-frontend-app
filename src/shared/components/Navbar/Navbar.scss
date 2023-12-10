@@ -51,7 +51,7 @@
   &__helpers {
     display: flex;
     align-items: center;
-    gap: rem(46.05px);
+    gap: rem(40px);
   }
 
   &__search {
@@ -81,13 +81,6 @@
       font-size: rem(14px);
       line-height: 150%;
       font-weight: 500;
-    }
-
-    &-burger {
-      width: rem(30.03px);
-      height: rem(30.03px);
-      background: url("../../assets/img/burger.svg") center / contain no-repeat;
-      cursor: pointer;
     }
   }
 }
