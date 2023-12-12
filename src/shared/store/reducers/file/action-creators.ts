@@ -5,6 +5,7 @@ import {
   createFolder,
   deleteFile,
   renameFile,
+  searchFiles,
 } from "@/shared/api/file"
 import { uuid } from "@/shared/types/ICommon"
 import { IFile, IFileNavigation } from "@/shared/types/IFile"
@@ -17,6 +18,7 @@ import {
   PopNavigationStack,
   RenameFileAction,
   ReplaceFileAction,
+  SetSearchedFiles,
 } from "./types"
 
 export const FileActionCreators = {
@@ -50,6 +52,11 @@ export const FileActionCreators = {
     payload: item,
   }),
 
+  setSearchedFiles: (files: IFile[]): SetSearchedFiles => ({
+    type: FileActionsEnum.SEARCHED_FILES,
+    payload: files,
+  }),
+
   popNavigationStack: (): PopNavigationStack => ({
     type: FileActionsEnum.POP_NAVIGATION_STACK,
   }),
@@ -59,6 +66,14 @@ export const FileActionCreators = {
 
     if (result) {
       dispatch(FileActionCreators.setFiles(result))
+    }
+  },
+
+  getSearchedFiles: (searchValue: string) => async (dispatch: AppDispatch) => {
+    const result = await searchFiles(searchValue)
+
+    if (result) {
+      dispatch(FileActionCreators.setSearchedFiles(result))
     }
   },
 

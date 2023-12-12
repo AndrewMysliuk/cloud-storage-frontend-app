@@ -21,13 +21,6 @@ const Sidebar = () => {
                 <div className="sidebar__link-title">Files</div>
               </div>
             </div>
-
-            <div className="sidebar__link">
-              <div className="sidebar__link-wrapper">
-                <div className="sidebar__link-icon --starred" />
-                <div className="sidebar__link-title">Starred</div>
-              </div>
-            </div>
           </div>
         </nav>
 

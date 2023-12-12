@@ -139,8 +139,6 @@ export const searchFiles = async (
 
     const { data }: { data: IFile[] } = response
 
-    console.log(data)
-
     return data
   } catch {
     return null

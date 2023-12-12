@@ -5,6 +5,7 @@ export interface FileState {
   currentFolder: uuid | null
   Files: IFile[]
   navigationStack: IFileNavigation[]
+  searchedFiles: IFile[]
 }
 
 export enum FileActionsEnum {
@@ -15,6 +16,7 @@ export enum FileActionsEnum {
   PUSH_NAVIGATION_STACK = "PUSH_NAVIGATION_STACK",
   POP_NAVIGATION_STACK = "POP_NAVIGATION_STACK",
   REPLACE_FILE = "REPLACE_FILE",
+  SEARCHED_FILES = "SEARCHED_FILES",
 }
 
 export interface SetCurrentFolderAction {
@@ -51,6 +53,11 @@ export interface ReplaceFileAction {
   payload: IFile
 }
 
+export interface SetSearchedFiles {
+  type: FileActionsEnum.SEARCHED_FILES
+  payload: IFile[]
+}
+
 export type FileAction =
   | SetCurrentFolderAction
   | SetFilesAction
@@ -59,3 +66,4 @@ export type FileAction =
   | PopNavigationStack
   | RenameFileAction
   | ReplaceFileAction
+  | SetSearchedFiles

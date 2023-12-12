@@ -20,9 +20,8 @@ const Table = () => {
     popNavigationStack,
     userGetMe,
   } = useActions()
-  const { Files, currentFolder, navigationStack } = useTypedSelector(
-    (store) => store.file
-  )
+  const { Files, currentFolder, navigationStack, searchedFiles } =
+    useTypedSelector((store) => store.file)
   const { User } = useTypedSelector((store) => store.user)
   const [isInfoModalOpen, setIsInfoModalOpen] = useState<boolean>(false)
   const [isRenameFolderModalOpen, setIsRenameFolderModalOpen] =
@@ -171,94 +170,188 @@ const Table = () => {
                   <div className="disk__table-back">. .</div>
                 </div>
               )}
-              {Files.map((item: IFile) => (
-                <div className="table__wrapper" key={item._id}>
-                  <div
-                    className="table__row"
-                    onClick={() => rowClickHandler(item._id)}
-                  >
-                    <div className="table__col --name">
-                      <div className="disk__table-wrapper">
-                        <div
-                          className={`disk__table-image ${
-                            item.type ? "--" + item.type : ""
-                          }`}
-                        />
-                        <div className="disk__table-title">{item.name}</div>
-                      </div>
-                    </div>
-                    <div className="table__col --tag">
-                      <div className="disk__table-desc">#common</div>
-                    </div>
-                    <div className="table__col --timestamp">
-                      <div className="disk__table-desc">
-                        {shortDate(item.created_at)}
-                      </div>
-                    </div>
-                    <div className="table__col --owner">
-                      <div className="disk__table-wrapper">
-                        <div className="disk__table-short --orange">
-                          {User.first_name?.[0]}
-                          {User.last_name?.[0]}
-                        </div>
-                        <div className="disk__table-name">
-                          {User.first_name} {User.last_name}
+              {searchedFiles.length > 0 &&
+                searchedFiles.map((item: IFile) => (
+                  <div className="table__wrapper" key={item._id}>
+                    <div
+                      className="table__row"
+                      onClick={() => rowClickHandler(item._id)}
+                    >
+                      <div className="table__col --name">
+                        <div className="disk__table-wrapper">
+                          <div
+                            className={`disk__table-image ${
+                              item.type ? "--" + item.type : ""
+                            }`}
+                          />
+                          <div className="disk__table-title">{item.name}</div>
                         </div>
                       </div>
-                    </div>
-                    <div className="table__col --modified">
-                      <div className="disk__table-desc">
-                        {shortDate(item.updated_at)}
+                      <div className="table__col --tag">
+                        <div className="disk__table-desc">#common</div>
                       </div>
-                    </div>
-                    <div className="table__col --menu">
-                      <div
-                        className="disk__table-menu"
-                        onClick={(event) => contextMenuHandler(event, item._id)}
-                      />
-                    </div>
-                  </div>
-                  {selectedRow === item._id && (
-                    <div className="disk__context" ref={menuRef}>
-                      <div
-                        className="disk__context-point"
-                        onClick={() => renameFile(item)}
-                      >
-                        <div className="disk__context-icon --edit" />
-                        <div className="disk__context-title">
-                          {item.type === FileTypeEnum.FILE
-                            ? "Rename File"
-                            : "Rename Folder"}
+                      <div className="table__col --timestamp">
+                        <div className="disk__table-desc">
+                          {shortDate(item.created_at)}
                         </div>
                       </div>
-
-                      {item.type === FileTypeEnum.FILE && (
-                        <div
-                          className="disk__context-point"
-                          onClick={() => downloadFileHandler(item)}
-                        >
-                          <div className="disk__context-icon --download" />
-                          <div className="disk__context-title">
-                            Download File
+                      <div className="table__col --owner">
+                        <div className="disk__table-wrapper">
+                          <div className="disk__table-short --orange">
+                            {User.first_name?.[0]}
+                            {User.last_name?.[0]}
+                          </div>
+                          <div className="disk__table-name">
+                            {User.first_name} {User.last_name}
                           </div>
                         </div>
-                      )}
-
-                      <div
-                        className="disk__context-point"
-                        onClick={() => deleteFile(item)}
-                      >
-                        <div className="disk__context-icon --delete" />
-                        <div className="disk__context-title">
-                          {item.type === FileTypeEnum.FILE
-                            ? "Delete File"
-                            : "Delete Folder"}
+                      </div>
+                      <div className="table__col --modified">
+                        <div className="disk__table-desc">
+                          {shortDate(item.updated_at)}
                         </div>
                       </div>
+                      <div className="table__col --menu">
+                        <div
+                          className="disk__table-menu"
+                          onClick={(event) =>
+                            contextMenuHandler(event, item._id)
+                          }
+                        />
+                      </div>
                     </div>
-                  )}
-                </div>
-              ))}
+                    {selectedRow === item._id && (
+                      <div className="disk__context" ref={menuRef}>
+                        <div
+                          className="disk__context-point"
+                          onClick={() => renameFile(item)}
+                        >
+                          <div className="disk__context-icon --edit" />
+                          <div className="disk__context-title">
+                            {item.type === FileTypeEnum.FILE
+                              ? "Rename File"
+                              : "Rename Folder"}
+                          </div>
+                        </div>
+
+                        {item.type === FileTypeEnum.FILE && (
+                          <div
+                            className="disk__context-point"
+                            onClick={() => downloadFileHandler(item)}
+                          >
+                            <div className="disk__context-icon --download" />
+                            <div className="disk__context-title">
+                              Download File
+                            </div>
+                          </div>
+                        )}
+
+                        <div
+                          className="disk__context-point"
+                          onClick={() => deleteFile(item)}
+                        >
+                          <div className="disk__context-icon --delete" />
+                          <div className="disk__context-title">
+                            {item.type === FileTypeEnum.FILE
+                              ? "Delete File"
+                              : "Delete Folder"}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              {searchedFiles.length === 0 &&
+                Files.map((item: IFile) => (
+                  <div className="table__wrapper" key={item._id}>
+                    <div
+                      className="table__row"
+                      onClick={() => rowClickHandler(item._id)}
+                    >
+                      <div className="table__col --name">
+                        <div className="disk__table-wrapper">
+                          <div
+                            className={`disk__table-image ${
+                              item.type ? "--" + item.type : ""
+                            }`}
+                          />
+                          <div className="disk__table-title">{item.name}</div>
+                        </div>
+                      </div>
+                      <div className="table__col --tag">
+                        <div className="disk__table-desc">#common</div>
+                      </div>
+                      <div className="table__col --timestamp">
+                        <div className="disk__table-desc">
+                          {shortDate(item.created_at)}
+                        </div>
+                      </div>
+                      <div className="table__col --owner">
+                        <div className="disk__table-wrapper">
+                          <div className="disk__table-short --orange">
+                            {User.first_name?.[0]}
+                            {User.last_name?.[0]}
+                          </div>
+                          <div className="disk__table-name">
+                            {User.first_name} {User.last_name}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="table__col --modified">
+                        <div className="disk__table-desc">
+                          {shortDate(item.updated_at)}
+                        </div>
+                      </div>
+                      <div className="table__col --menu">
+                        <div
+                          className="disk__table-menu"
+                          onClick={(event) =>
+                            contextMenuHandler(event, item._id)
+                          }
+                        />
+                      </div>
+                    </div>
+                    {selectedRow === item._id && (
+                      <div className="disk__context" ref={menuRef}>
+                        <div
+                          className="disk__context-point"
+                          onClick={() => renameFile(item)}
+                        >
+                          <div className="disk__context-icon --edit" />
+                          <div className="disk__context-title">
+                            {item.type === FileTypeEnum.FILE
+                              ? "Rename File"
+                              : "Rename Folder"}
+                          </div>
+                        </div>
+
+                        {item.type === FileTypeEnum.FILE && (
+                          <div
+                            className="disk__context-point"
+                            onClick={() => downloadFileHandler(item)}
+                          >
+                            <div className="disk__context-icon --download" />
+                            <div className="disk__context-title">
+                              Download File
+                            </div>
+                          </div>
+                        )}
+
+                        <div
+                          className="disk__context-point"
+                          onClick={() => deleteFile(item)}
+                        >
+                          <div className="disk__context-icon --delete" />
+                          <div className="disk__context-title">
+                            {item.type === FileTypeEnum.FILE
+                              ? "Delete File"
+                              : "Delete Folder"}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
             </div>
           ) : (
             <div

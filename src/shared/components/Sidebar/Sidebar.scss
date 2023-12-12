@@ -74,11 +74,6 @@
       height: rem(22.75px);
       transition: all 0.3s ease;
 
-      &.--starred {
-        background: url("../../assets/img/menu/star.svg") center / contain
-          no-repeat;
-      }
-
       &.--folder {
         background: url("../../assets/img/menu/folder.svg") center / contain
           no-repeat;

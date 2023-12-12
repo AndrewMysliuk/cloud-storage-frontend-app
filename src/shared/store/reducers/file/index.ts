@@ -4,6 +4,7 @@ const initialStore: FileState = {
   currentFolder: null,
   navigationStack: [],
   Files: [],
+  searchedFiles: [],
 }
 
 export default function userReducer(
@@ -44,6 +45,12 @@ export default function userReducer(
       return {
         ...state,
         navigationStack: state.navigationStack.slice(0, -1),
+      }
+
+    case FileActionsEnum.SEARCHED_FILES:
+      return {
+        ...state,
+        searchedFiles: action.payload,
       }
 
     default:

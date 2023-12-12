@@ -2,21 +2,26 @@ import { useState } from "react"
 import "./Navbar.scss"
 import { VInput } from "@/shared/ui"
 import { useTypedSelector } from "@/shared/hooks/useTypedSelector"
-import { searchFiles } from "@/shared/api/file"
-import { debounce } from "lodash"
+import { useActions } from "@/shared/hooks/useActions"
 
 const Navbar = () => {
+  const { getSearchedFiles, setSearchedFiles } = useActions()
   const { navigationStack } = useTypedSelector((store) => store.file)
   const [searchValue, setSearchValue] = useState<string>("")
   const { User } = useTypedSelector((state) => state.user)
 
-  const debouncedSearchFiles = debounce(() => {
-    searchFiles(searchValue)
-  }, 500)
+  const searchFilesMethod = () => {
+    getSearchedFiles(searchValue)
+  }
 
   const changeValueHandler = (value: string) => {
     setSearchValue(value)
-    debouncedSearchFiles()
+
+    if (value.length > 0) {
+      searchFilesMethod()
+    } else {
+      setSearchedFiles([])
+    }
   }
 
   return (
