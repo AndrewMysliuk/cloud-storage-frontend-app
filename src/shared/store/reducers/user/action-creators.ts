@@ -1,7 +1,7 @@
+import Session from "supertokens-web-js/recipe/session"
 import { AppDispatch } from "../.."
 import { IUser } from "@/shared/types/IUser"
 import { UserActionsEnum, SetAuthAction, SetUserAction } from "./types"
-import { setAuthHeaders } from "../../../plugins/axios"
 import { getMe } from "@/shared/api/auth"
 
 export const UserActionCreators = {
@@ -23,26 +23,16 @@ export const UserActionCreators = {
     }
   },
 
-  userLogin: (token: string) => (dispatch: AppDispatch) => {
-    localStorage.setItem("access_token", token)
-    dispatch(UserActionCreators.setIsAuth(true))
+  checkUserLogin: () => async (dispatch: AppDispatch) => {
+    const isSessionExist = await Session.doesSessionExist()
 
-    setAuthHeaders()
+    if (isSessionExist) dispatch(UserActionCreators.setIsAuth(true))
   },
 
-  checkUserLogin: () => (dispatch: AppDispatch) => {
-    if (localStorage.getItem("access_token")) {
-      dispatch(UserActionCreators.setIsAuth(true))
+  userLogout: () => async (dispatch: AppDispatch) => {
+    await Session.signOut()
 
-      setAuthHeaders()
-    }
-  },
-
-  userLogout: () => (dispatch: AppDispatch) => {
-    localStorage.removeItem("access_token")
     dispatch(UserActionCreators.setUser({} as IUser))
     dispatch(UserActionCreators.setIsAuth(false))
-
-    setAuthHeaders()
   },
 }

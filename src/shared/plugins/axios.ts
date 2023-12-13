@@ -1,28 +1,38 @@
 import axios from "axios"
+import Session from "supertokens-web-js/recipe/session"
+import { store } from "@/shared/store"
+import { UserActionCreators } from "../store/reducers/user/action-creators"
 
 const axiosInstance = axios.create({
+  withCredentials: true,
   baseURL: process.env.REACT_APP_API_URL,
 })
 
-export const setAuthHeaders = () => {
-  const auth_token = localStorage.getItem("access_token") || ""
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${auth_token}`
-}
+export const setLogout = async () => {
+  await store.dispatch(UserActionCreators.userLogout())
 
-setAuthHeaders()
+  setTimeout(() => {
+    window.location.href = "/login"
+  })
+}
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     const { status } = error.request
+    const originalRequest = error.config
 
-    if (status === 401) {
-      localStorage.removeItem("access_token")
-      setAuthHeaders()
+    if (status === 401 && error.config && !error.config._isRetry) {
+      originalRequest._isRetry = true
+      const isRefreshed = await Session.attemptRefreshingSession()
 
-      setTimeout(() => {
-        window.location.href = "/login"
-      })
+      if (isRefreshed) {
+        return axiosInstance.request(originalRequest)
+      } else {
+        await setLogout()
+      }
+    } else if (status === 401 && error.config && error.config._isRetry) {
+      await setLogout()
     }
 
     return Promise.reject(error.response)

@@ -10,14 +10,14 @@ interface LoginProps {
 const Login: FC<LoginProps> = ({ setIsLogin }) => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const { userLogin, userGetMe } = useActions()
+  const { checkUserLogin, userGetMe } = useActions()
 
   const loginHandler = async () => {
     if (email && password) {
       const response = await login(email, password)
 
       if (response) {
-        userLogin(response.token)
+        await checkUserLogin()
         await userGetMe()
       }
     }
